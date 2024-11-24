@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.features.inventory.items
+package com.isaacguru.presentation.features.inventory.items.detail
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier

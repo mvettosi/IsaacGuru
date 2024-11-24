@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
+import com.isaacguru.presentation.util.components.LoadingContent
 import isaacguru.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
@@ -46,23 +47,28 @@ fun InventoryScreen(
     columns: Int = 5,
     inventoryItems: List<InventoryItem>,
     onInventoryItemClick: (InventoryItem) -> Unit,
+    isLoading: Boolean = false
 ) {
   var showList by remember { mutableStateOf(defaultToList) }
   val toggleView = { showList = !showList }
-  Column(modifier = modifier) {
-    InventoryTopBar(
+  if (isLoading) {
+    LoadingContent(modifier = modifier)
+  } else {
+    Column(modifier = modifier) {
+      InventoryTopBar(
         title = title,
         onBackClick = onBackClick,
         onFilterClick = onFilterClick,
         onListClick = if (displayViewToggle) toggleView else null,
-    )
-    if (showList) {
-      InventoryList(inventoryItems = inventoryItems, onInventoryItemClick = onInventoryItemClick)
-    } else {
-      InventoryGrid(
+      )
+      if (showList) {
+        InventoryList(inventoryItems = inventoryItems, onInventoryItemClick = onInventoryItemClick)
+      } else {
+        InventoryGrid(
           inventoryItems = inventoryItems,
           onInventoryItemClick = onInventoryItemClick,
           columns = columns)
+      }
     }
   }
 }
