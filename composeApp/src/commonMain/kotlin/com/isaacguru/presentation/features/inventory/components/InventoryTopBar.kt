@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.screens.inventory.shared.components
+package com.isaacguru.presentation.features.inventory.components
 
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.material.icons.Icons

@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.screens.inventory.shared
+package com.isaacguru.presentation.features.inventory.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -17,6 +17,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,25 +27,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
-import com.isaacguru.presentation.screens.inventory.shared.components.InventoryTopBar
-import com.isaacguru.presentation.screens.inventory.shared.model.InventoryItem
+import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
 import isaacguru.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun InventoryScreen(
-  title: String,
-  modifier: Modifier = Modifier,
-  onBackClick: (() -> Unit)? = null,
-  onFilterClick: (() -> Unit)? = null,
-  defaultToList: Boolean = true,
-  displayViewToggle: Boolean = true,
-  columns: Int = 5,
-  inventoryItems: List<InventoryItem>,
-  onInventoryItemClick: (InventoryItem) -> Unit,
+    title: String,
+    modifier: Modifier = Modifier,
+    onBackClick: (() -> Unit)? = null,
+    onFilterClick: (() -> Unit)? = null,
+    defaultToList: Boolean = true,
+    displayViewToggle: Boolean = true,
+    columns: Int = 5,
+    inventoryItems: List<InventoryItem>,
+    onInventoryItemClick: (InventoryItem) -> Unit,
 ) {
   var showList by remember { mutableStateOf(defaultToList) }
   val toggleView = { showList = !showList }
@@ -68,8 +69,8 @@ fun InventoryScreen(
 
 @Composable
 private fun InventoryList(
-  inventoryItems: List<InventoryItem>,
-  onInventoryItemClick: (InventoryItem) -> Unit
+    inventoryItems: List<InventoryItem>,
+    onInventoryItemClick: (InventoryItem) -> Unit
 ) {
   LazyColumn(
       verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -89,7 +90,14 @@ private fun InventoryList(
               painter = rememberAsyncImagePainter(inventoryItem.thumbnail),
               contentDescription = inventoryItem.name,
               modifier = Modifier.size(50.dp))
-          Text(text = inventoryItem.name, modifier = Modifier.weight(1f))
+          Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = inventoryItem.name,
+                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold))
+            inventoryItem.summary?.let {
+              Text(text = it, style = MaterialTheme.typography.bodyMedium)
+            }
+          }
         }
       }
     }
@@ -98,9 +106,9 @@ private fun InventoryList(
 
 @Composable
 private fun InventoryGrid(
-  inventoryItems: List<InventoryItem>,
-  columns: Int = 5,
-  onInventoryItemClick: (InventoryItem) -> Unit
+    inventoryItems: List<InventoryItem>,
+    columns: Int = 5,
+    onInventoryItemClick: (InventoryItem) -> Unit
 ) {
   LazyVerticalGrid(columns = GridCells.Fixed(columns)) {
     inventoryItems.forEach { inventoryItem ->
@@ -122,43 +130,4 @@ private fun InventoryGrid(
       }
     }
   }
-}
-
-@OptIn(ExperimentalResourceApi::class)
-@Preview
-@Composable
-fun InventoryListPreview() {
-  val inventoryItems =
-      listOf(
-          InventoryItem(name = "Item 1", thumbnail = Res.getUri("files/Isaac.webp")),
-          InventoryItem(name = "Item 2", thumbnail = Res.getUri("files/Isaac.webp")),
-          InventoryItem(name = "Item 3", thumbnail = Res.getUri("files/Isaac.webp")),
-      )
-  InventoryScreen(
-      title = "Inventory",
-      onBackClick = {},
-      onFilterClick = {},
-      defaultToList = true,
-      inventoryItems = inventoryItems,
-      onInventoryItemClick = {})
-}
-
-@OptIn(ExperimentalResourceApi::class)
-@Preview
-@Composable
-fun InventoryGridPreview() {
-  val inventoryItems =
-      listOf(
-          InventoryItem(name = "Item 1", thumbnail = Res.getUri("files/Isaac.webp")),
-          InventoryItem(name = "Item 2", thumbnail = Res.getUri("files/Isaac.webp")),
-          InventoryItem(name = "Item 3", thumbnail = Res.getUri("files/Isaac.webp")),
-      )
-  InventoryScreen(
-      title = "Inventory",
-      onBackClick = {},
-      onFilterClick = {},
-      defaultToList = false,
-      columns = 3,
-      inventoryItems = inventoryItems,
-      onInventoryItemClick = {})
 }

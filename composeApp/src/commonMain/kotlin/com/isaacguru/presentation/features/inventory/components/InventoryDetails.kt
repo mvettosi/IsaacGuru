@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.screens.inventory.shared
+package com.isaacguru.presentation.features.inventory.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -10,8 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import com.isaacguru.presentation.screens.inventory.shared.components.InventoryTopBar
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun InventoryDetails(
@@ -32,13 +30,4 @@ fun InventoryDetails(
         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold))
     content()
   }
-}
-
-@Preview
-@Composable
-fun InventoryDetailsPreview() {
-  InventoryDetails(
-      title = "Item Title",
-      onBackClick = { /*TODO*/},
-  ) { Text("Item Content") }
 }

@@ -5,48 +5,32 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.isaacguru.presentation.screens.inventory.achievements.AchievementsScreen
-import com.isaacguru.presentation.screens.inventory.bosses.BossesScreen
-import com.isaacguru.presentation.screens.inventory.characters.CharactersScreen
-import com.isaacguru.presentation.screens.inventory.dice_rooms.DiceRoomsScreen
-import com.isaacguru.presentation.screens.inventory.enemies.EnemiesScreen
-import com.isaacguru.presentation.screens.inventory.home.InventoryHomeScreen
-import com.isaacguru.presentation.screens.inventory.items.ItemDetailsScreen
-import com.isaacguru.presentation.screens.inventory.items.ItemsScreen
-import com.isaacguru.presentation.screens.inventory.pickups.PickupsScreen
-import com.isaacguru.presentation.screens.inventory.transformations.TransformationsScreen
-import com.isaacguru.presentation.screens.inventory.trinkets.TrinketsScreen
-import com.isaacguru.presentation.screens.search.SearchScreen
-import com.isaacguru.presentation.screens.settings.SettingsScreen
+import com.isaacguru.presentation.features.inventory.characters.CharactersScreen
+import com.isaacguru.presentation.features.inventory.home.InventoryHomeScreen
+import com.isaacguru.presentation.features.inventory.items.ItemDetailsScreen
+import com.isaacguru.presentation.features.inventory.items.ItemsScreen
+import com.isaacguru.presentation.features.inventory.pickups.PickupsScreen
+import com.isaacguru.presentation.features.inventory.transformations.TransformationsScreen
+import com.isaacguru.presentation.features.inventory.trinkets.TrinketsScreen
+import com.isaacguru.presentation.features.search.SearchScreen
+import com.isaacguru.presentation.features.settings.SettingsScreen
 
 @Composable
 fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modifier) {
   NavHost(
       navController = navController,
-      startDestination = Screen.Inventory.InventoryHome,
+      startDestination = Screen.Inventory.Home,
       modifier = modifier) {
     // Home screen tabs
-    composable<Screen.Inventory.InventoryHome> {
+    composable<Screen.Inventory.Home> {
       InventoryHomeScreen(navigateToScreen = { screen -> navController.navigate(screen) })
     }
     composable<Screen.Search> { SearchScreen() }
     composable<Screen.Settings> { SettingsScreen() }
 
     // Inventory grids
-    composable<Screen.Inventory.Achievements> {
-      AchievementsScreen(onBackClick = { navController.popBackStack() })
-    }
-    composable<Screen.Inventory.Bosses> {
-      BossesScreen(onBackClick = { navController.popBackStack() })
-    }
     composable<Screen.Inventory.Characters> {
       CharactersScreen(onBackClick = { navController.popBackStack() })
-    }
-    composable<Screen.Inventory.DiceRooms> {
-      DiceRoomsScreen(onBackClick = { navController.popBackStack() })
-    }
-    composable<Screen.Inventory.Enemies> {
-      EnemiesScreen(onBackClick = { navController.popBackStack() })
     }
     composable<Screen.Inventory.Items> {
       ItemsScreen(

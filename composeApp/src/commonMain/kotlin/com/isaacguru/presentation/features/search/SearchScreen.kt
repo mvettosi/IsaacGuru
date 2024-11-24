@@ -1,10 +1,10 @@
-package com.isaacguru.presentation.screens.settings
+package com.isaacguru.presentation.features.search
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 @Composable
-fun SettingsScreen(modifier: Modifier = Modifier) {
-  Text("Settings")
+fun SearchScreen(modifier: Modifier = Modifier) {
+  Text("Search")
 }

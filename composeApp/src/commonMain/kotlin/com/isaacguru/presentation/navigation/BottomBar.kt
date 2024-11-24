@@ -20,10 +20,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavHostController
 
 data class BottomBarItem(
-  val screen: Screen,
-  val title: String,
-  val selectedIcon: ImageVector,
-  val unselectedIcon: ImageVector
+    val screen: Screen,
+    val title: String,
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector
 )
 
 @Composable
@@ -31,7 +31,7 @@ fun BottomBar(navController: NavHostController) {
   val bottomBarItems =
       listOf(
           BottomBarItem(
-              screen = Screen.Inventory.InventoryHome,
+              screen = Screen.Inventory.Home,
               title = "Inventory",
               selectedIcon = Icons.Filled.Menu,
               unselectedIcon = Icons.Outlined.Menu,

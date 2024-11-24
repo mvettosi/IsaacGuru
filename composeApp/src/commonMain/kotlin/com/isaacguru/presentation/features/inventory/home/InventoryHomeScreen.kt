@@ -1,13 +1,12 @@
-package com.isaacguru.presentation.screens.inventory.home
+package com.isaacguru.presentation.features.inventory.home
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.isaacguru.presentation.features.inventory.components.InventoryScreen
+import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
 import com.isaacguru.presentation.navigation.Screen
-import com.isaacguru.presentation.screens.inventory.shared.InventoryScreen
-import com.isaacguru.presentation.screens.inventory.shared.model.InventoryItem
 import isaacguru.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -20,48 +19,38 @@ fun InventoryHomeScreen(modifier: Modifier = Modifier, navigateToScreen: (Screen
           listOf(
               InventoryItem(
                   name = "Items",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
+                  thumbnail = Res.getUri("files/collectibles_118_brimstone.png"),
                   destination = Screen.Inventory.Items),
               InventoryItem(
                   name = "Trinkets",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
+                  thumbnail = Res.getUri("files/trinket_001_swallowedpenny.png"),
                   destination = Screen.Inventory.Trinkets),
               InventoryItem(
                   name = "Pickups",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
+                  thumbnail = Res.getUri("files/Heart.webp"),
                   destination = Screen.Inventory.Pickups),
               InventoryItem(
-                  name = "Enemies",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
-                  destination = Screen.Inventory.Enemies),
+                  name = "Consumables",
+                  thumbnail = Res.getUri("files/Item_Card.webp"),
+                  destination = Screen.Inventory.Consumables),
               InventoryItem(
-                  name = "Bosses",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
-                  destination = Screen.Inventory.Bosses),
+                  name = "Machines",
+                  thumbnail = Res.getUri("files/Slot_Machine.webp"),
+                  destination = Screen.Inventory.Machines),
               InventoryItem(
                   name = "Characters",
                   thumbnail = Res.getUri("files/Isaac.webp"),
                   destination = Screen.Inventory.Characters),
               InventoryItem(
                   name = "Transformations",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
+                  thumbnail = Res.getUri("files/Guppy.webp"),
                   destination = Screen.Inventory.Transformations),
               InventoryItem(
-                  name = "Achievements",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
-                  destination = Screen.Inventory.Achievements),
-              InventoryItem(
-                  name = "Dice Rooms",
-                  thumbnail = Res.getUri("files/Isaac.webp"),
-                  destination = Screen.Inventory.DiceRooms),
+                  name = "Curses",
+                  thumbnail = Res.getUri("files/Curse of Darkness.webp"),
+                  destination = Screen.Inventory.Curses),
           ),
       onInventoryItemClick = {
         it.destination?.let { destination -> navigateToScreen(destination) }
       })
-}
-
-@Preview
-@Composable
-fun InventoryHomeScreenPreview() {
-  InventoryHomeScreen(navigateToScreen = {})
 }
