@@ -5,12 +5,12 @@ import com.isaacguru.presentation.features.inventory.components.model.InventoryI
 import com.isaacguru.presentation.navigation.Screen
 import com.isaacguru.presentation.util.ViewMapper
 
-class ViewItemListMapper: ViewMapper<Item, InventoryItem> {
-  override fun mapToView(domain: Item) = InventoryItem(
-    id = domain.id,
-    name = domain.name,
-    summary = domain.quote,
-    thumbnail = domain.image,
-    destination = Screen.Inventory.Detail.Item(id = domain.id)
-  )
+class ViewItemListMapper : ViewMapper<Item, InventoryItem> {
+  override fun mapToView(domain: Item) =
+      InventoryItem(
+          id = domain.id,
+          name = domain.name,
+          summary = domain.quote,
+          thumbnail = domain.image,
+          destination = Screen.Inventory.Detail.Item(id = domain.id))
 }

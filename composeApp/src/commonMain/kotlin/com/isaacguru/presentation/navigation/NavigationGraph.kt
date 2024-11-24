@@ -7,8 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.isaacguru.presentation.features.inventory.characters.CharactersScreen
 import com.isaacguru.presentation.features.inventory.home.InventoryHomeScreen
-import com.isaacguru.presentation.features.inventory.items.detail.ItemDetailsScreen
 import com.isaacguru.presentation.features.inventory.items.ItemsScreen
+import com.isaacguru.presentation.features.inventory.items.detail.ItemDetailsScreen
 import com.isaacguru.presentation.features.inventory.pickups.PickupsScreen
 import com.isaacguru.presentation.features.inventory.transformations.TransformationsScreen
 import com.isaacguru.presentation.features.inventory.trinkets.TrinketsScreen

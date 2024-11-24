@@ -18,7 +18,7 @@ fun ItemsScreen(
       title = "Items",
       onBackClick = onBackClick,
       defaultToList = false,
-    isLoading = viewState.isLoading,
-    inventoryItems = viewState.items,
+      isLoading = viewState.isLoading,
+      inventoryItems = viewState.items,
       onInventoryItemClick = displayItemDetails)
 }
