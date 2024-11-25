@@ -9,19 +9,19 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.isaacguru.presentation.navigation.BottomBar
 import com.isaacguru.presentation.navigation.NavigationGraph
+import com.isaacguru.presentation.util.AppStartup
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 @Preview
 fun App() {
   MaterialTheme {
-    MaterialTheme {
-      val navController = rememberNavController()
+    AppStartup()
 
-      Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = { BottomBar(navController) }) {
-          innerPadding ->
-        NavigationGraph(navController = navController, modifier = Modifier.padding(innerPadding))
-      }
+    val navController = rememberNavController()
+    Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = { BottomBar(navController) }) {
+        innerPadding ->
+      NavigationGraph(navController = navController, modifier = Modifier.padding(innerPadding))
     }
   }
 }
