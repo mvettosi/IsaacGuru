@@ -1,7 +1,7 @@
 package com.isaacguru.presentation.features.inventory.items
 
-import com.isaacguru.domain.collectable.item.model.ItemPool
+import com.isaacguru.domain.collectable.item.model.ItemFilters
 
 sealed interface ItemsAction {
-  data class OnLoadItems(val itemPools: List<ItemPool> = emptyList()) : ItemsAction
+  data class OnLoadItems(val itemFilters: ItemFilters = ItemFilters()) : ItemsAction
 }

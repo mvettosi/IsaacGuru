@@ -2,15 +2,14 @@ package com.isaacguru.presentation.features.inventory.items
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.isaacguru.domain.collectable.item.model.ItemPool
+import com.isaacguru.domain.collectable.item.model.ItemFilters
 import com.isaacguru.domain.collectable.item.usecase.GetItemsUseCase
 import com.isaacguru.presentation.features.inventory.items.mapper.ViewItemListMapper
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
@@ -32,22 +31,25 @@ class ItemsViewModel(
 
   fun onAction(action: ItemsAction) {
     when (action) {
-      is ItemsAction.OnLoadItems -> _viewState.update { it.copy(itemPools = action.itemPools) }
+      is ItemsAction.OnLoadItems -> _viewState.update { it.copy(itemFilters = action.itemFilters) }
     }
   }
 
-  @OptIn(FlowPreview::class)
   private fun observeItemLoading() {
-    state.map { it.itemPools }.distinctUntilChanged().debounce(500L).onEach { itemPools ->
-      filterJob?.cancel()
-      filterJob = filterItems(itemPools)
-    }
+    state
+        .map { it.itemFilters }
+        .distinctUntilChanged()
+        .onEach { itemFilters ->
+          filterJob?.cancel()
+          filterJob = filterItems(itemFilters = itemFilters)
+        }
+        .launchIn(viewModelScope)
   }
 
-  private fun filterItems(itemPools: List<ItemPool>): Job =
+  private fun filterItems(itemFilters: ItemFilters): Job =
       viewModelScope.launch {
         _viewState.update { it.copy(isLoading = true) }
-        getItemsUseCase(itemPools)
+        getItemsUseCase(itemFilters)
             .onSuccess { items ->
               _viewState.update {
                 it.copy(items = items.map(viewItemListMapper::mapToView), isLoading = false)
