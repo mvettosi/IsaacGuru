@@ -1,0 +1,15 @@
+package com.isaacguru.data.item.local.datasource
+
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.Query
+import com.isaacguru.data.item.local.model.ItemEntity
+
+@Dao
+interface ItemDataSource {
+  @Insert suspend fun insertItems(items: List<ItemEntity>)
+
+  @Query("SELECT * FROM ItemEntity") suspend fun getAllItems(): List<ItemEntity>
+
+  @Query("SELECT * FROM ItemEntity WHERE id = :id") suspend fun getItem(id: String): ItemEntity?
+}

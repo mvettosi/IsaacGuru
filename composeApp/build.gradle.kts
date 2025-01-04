@@ -25,12 +25,12 @@ kotlin {
     }
   }
 
-  jvm("desktop")
+  //  jvm("desktop")
 
   room { schemaDirectory("$projectDir/schemas") }
 
   sourceSets {
-    val desktopMain by getting
+    //    val desktopMain by getting
 
     androidMain.dependencies {
       implementation(compose.preview)
@@ -65,11 +65,11 @@ kotlin {
 
       implementation(libs.kermit)
     }
-    desktopMain.dependencies {
-      implementation(compose.desktop.currentOs)
-      implementation(libs.kotlinx.coroutines.swing)
-      implementation(libs.ktor.client.okhttp)
-    }
+    //    desktopMain.dependencies {
+    //      implementation(compose.desktop.currentOs)
+    //      implementation(libs.kotlinx.coroutines.swing)
+    //      implementation(libs.ktor.client.okhttp)
+    //    }
     nativeMain.dependencies { implementation(libs.ktor.client.darwin) }
 
     dependencies { ksp(libs.androidx.room.compiler) }

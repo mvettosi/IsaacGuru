@@ -1,0 +1,59 @@
+package com.isaacguru.data.item.local.mapper
+
+import com.isaacguru.data.item.local.model.ItemEntity
+import com.isaacguru.domain.collectable.item.model.Item
+import com.isaacguru.domain.collectable.item.model.ItemType
+
+fun Item.toEntity() =
+    ItemEntity(
+        id = id,
+        name = name,
+        description = description,
+        image = image,
+        keywords = keywords,
+        quote = quote,
+        unlockMethod = unlockMethod,
+        costume = costume,
+        itemPools = itemPools,
+        quality = quality,
+        transformations = "", // TODO
+        type = if (this is Item.Active) ItemType.ACTIVE else ItemType.PASSIVE,
+        maxCharges = if (this is Item.Active) maxCharges else null,
+        chargeType = if (this is Item.Active) chargeType else null,
+        cooldown = if (this is Item.Active) cooldown else null,
+    )
+
+fun ItemEntity.toDomain() =
+    when (type) {
+      ItemType.ACTIVE ->
+          Item.Active(
+              id = id,
+              name = name,
+              description = description,
+              image = image,
+              keywords = keywords,
+              quote = quote,
+              unlockMethod = unlockMethod ?: "",
+              costume = costume,
+              itemPools = itemPools,
+              quality = quality,
+              transformations = emptyList(), // TODO
+              maxCharges = maxCharges ?: 0,
+              chargeType = chargeType ?: Item.Active.ChargeType.DEFAULT,
+              cooldown = cooldown ?: 0,
+          )
+      ItemType.PASSIVE ->
+          Item.Passive(
+              id = id,
+              name = name,
+              description = description,
+              image = image,
+              keywords = keywords,
+              quote = quote,
+              unlockMethod = unlockMethod ?: "",
+              costume = costume,
+              itemPools = emptyList(), // TODO
+              quality = quality,
+              transformations = emptyList(), // TODO
+          )
+    }

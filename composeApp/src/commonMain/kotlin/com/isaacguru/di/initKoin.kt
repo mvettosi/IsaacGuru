@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.di
+package com.isaacguru.di
 
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration

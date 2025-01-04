@@ -1,13 +1,12 @@
 package com.isaacguru.domain.collectable.item.model
 
 import com.isaacguru.domain.collectable.Collectible
-import com.isaacguru.domain.transformation.model.Transformation
 
 sealed class Item : Collectible() {
   abstract val costume: String
-  abstract val itemPools: List<ItemPool>
+  abstract val itemPools: List<String>
   abstract val quality: Int
-  abstract val transformations: List<Transformation>
+  abstract val transformations: List<String>
 
   data class Active(
       override val id: String,
@@ -18,9 +17,9 @@ sealed class Item : Collectible() {
       override val quote: String?,
       override val unlockMethod: String,
       override val costume: String,
-      override val itemPools: List<ItemPool>,
+      override val itemPools: List<String>,
       override val quality: Int,
-      override val transformations: List<Transformation>,
+      override val transformations: List<String>,
       val maxCharges: Int,
       val chargeType: ChargeType = ChargeType.DEFAULT,
       val cooldown: Int = 0,
@@ -41,8 +40,8 @@ sealed class Item : Collectible() {
       override val quote: String?,
       override val unlockMethod: String,
       override val costume: String,
-      override val itemPools: List<ItemPool>,
+      override val itemPools: List<String>,
       override val quality: Int,
-      override val transformations: List<Transformation>
+      override val transformations: List<String>
   ) : Item()
 }

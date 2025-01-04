@@ -9,14 +9,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.isaacguru.presentation.navigation.BottomBar
 import com.isaacguru.presentation.navigation.NavigationGraph
-import com.isaacguru.presentation.util.AppStartup
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 @Preview
-fun App() {
+fun App(appViewModel: AppViewModel = koinViewModel()) {
   MaterialTheme {
-    AppStartup()
+    LaunchedEffect(Unit) { appViewModel.appStartup() }
 
     val navController = rememberNavController()
     Scaffold(modifier = Modifier.fillMaxSize(), bottomBar = { BottomBar(navController) }) {

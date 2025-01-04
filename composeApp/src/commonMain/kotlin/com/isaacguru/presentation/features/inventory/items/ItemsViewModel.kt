@@ -2,9 +2,10 @@ package com.isaacguru.presentation.features.inventory.items
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import com.isaacguru.domain.collectable.item.model.ItemFilters
 import com.isaacguru.domain.collectable.item.usecase.GetItemsUseCase
-import com.isaacguru.presentation.features.inventory.items.mapper.ViewItemListMapper
+import com.isaacguru.presentation.features.inventory.items.mapper.toViewItem
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -17,10 +18,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ItemsViewModel(
-    private val getItemsUseCase: GetItemsUseCase,
-    private val viewItemListMapper: ViewItemListMapper
-) : ViewModel() {
+class ItemsViewModel(private val getItemsUseCase: GetItemsUseCase) : ViewModel() {
   private var filterJob: Job? = null
 
   private val _viewState = MutableStateFlow(ItemsViewState())
@@ -52,9 +50,12 @@ class ItemsViewModel(
         getItemsUseCase(itemFilters)
             .onSuccess { items ->
               _viewState.update {
-                it.copy(items = items.map(viewItemListMapper::mapToView), isLoading = false)
+                it.copy(items = items.map { item -> item.toViewItem() }, isLoading = false)
               }
             }
-            .onFailure { _viewState.update { it.copy(items = emptyList(), isLoading = false) } }
+            .onFailure {
+              Logger.e { "Error getting items: $it" }
+              _viewState.update { it.copy(items = emptyList(), isLoading = false) }
+            }
       }
 }
