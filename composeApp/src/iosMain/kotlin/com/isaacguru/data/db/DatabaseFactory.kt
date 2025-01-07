@@ -1,8 +1,7 @@
-package com.isaacguru.data.db.converters
+package com.isaacguru.data.db
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.isaacguru.data.db.IsaacGuruDatabase
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager

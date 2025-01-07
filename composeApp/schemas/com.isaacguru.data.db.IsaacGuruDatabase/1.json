@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "03b267ba367b82b33491d06f56fa2a04",
+    "identityHash": "08300aa7b2bb992aa77815925d0a7343",
     "entities": [
       {
         "tableName": "ItemEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `keywords` TEXT NOT NULL, `quote` TEXT, `unlockMethod` TEXT, `costume` TEXT NOT NULL, `itemPools` TEXT NOT NULL, `quality` INTEGER NOT NULL, `transformations` TEXT, `type` TEXT NOT NULL, `maxCharges` INTEGER, `chargeType` TEXT, `cooldown` INTEGER, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `keywords` TEXT NOT NULL, `quote` TEXT, `unlockMethod` TEXT, `costume` TEXT NOT NULL, `itemPools` TEXT NOT NULL, `quality` INTEGER NOT NULL, `transformations` TEXT NOT NULL, `type` TEXT NOT NULL, `maxCharges` INTEGER, `chargeType` TEXT, `cooldown` INTEGER, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -69,7 +69,8 @@
           {
             "fieldPath": "transformations",
             "columnName": "transformations",
-            "affinity": "TEXT"
+            "affinity": "TEXT",
+            "notNull": true
           },
           {
             "fieldPath": "type",
@@ -103,7 +104,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '03b267ba367b82b33491d06f56fa2a04')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '08300aa7b2bb992aa77815925d0a7343')"
     ]
   }
 }

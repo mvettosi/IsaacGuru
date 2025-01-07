@@ -9,6 +9,7 @@ class GameModRepositoryImpl() : GameModRepository {
   }
 
   override suspend fun getDefaultGameMod(): GameMod {
-    TODO("Not yet implemented")
+    // TODO("Not yet implemented")
+    return GameMod(id = "", name = "Default mod", version = "0", versionCode = 0)
   }
 }

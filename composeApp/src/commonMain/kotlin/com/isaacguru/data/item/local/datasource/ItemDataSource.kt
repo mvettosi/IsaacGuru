@@ -7,9 +7,11 @@ import com.isaacguru.data.item.local.model.ItemEntity
 
 @Dao
 interface ItemDataSource {
+  @Query("DELETE FROM ItemEntity") suspend fun clearItems()
+
   @Insert suspend fun insertItems(items: List<ItemEntity>)
 
-  @Query("SELECT * FROM ItemEntity") suspend fun getAllItems(): List<ItemEntity>
+  @Query("SELECT * FROM ItemEntity") fun getAllItems(): List<ItemEntity>
 
   @Query("SELECT * FROM ItemEntity WHERE id = :id") suspend fun getItem(id: String): ItemEntity?
 }

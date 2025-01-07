@@ -17,7 +17,7 @@ data class ItemEntity(
     val costume: String,
     val itemPools: List<String>,
     val quality: Int,
-    val transformations: String? = null,
+    val transformations: List<String>,
     val type: ItemType,
     val maxCharges: Int? = null,
     val chargeType: ChargeType? = null,

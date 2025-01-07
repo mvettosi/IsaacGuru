@@ -10,10 +10,12 @@ class LoadDefaultModUseCase(
     private val gameModRepository: GameModRepository,
     private val gameAspectRepository: GameAspectRepository,
     private val getCurrentSettingsUseCase: GetCurrentSettingsUseCase,
-    private val updateSettingsUseCase: UpdateSettingsUseCase
+    private val updateSettingsUseCase: UpdateSettingsUseCase,
+    private val setGameAspectsUseCase: SetGameAspectsUseCase
 ) {
   suspend operator fun invoke() = runCatching {
-    gameAspectRepository.loadDefaultGameAspects()
+    val defaultGameAspects = gameAspectRepository.getDefaultGameAspects()
+    setGameAspectsUseCase(defaultGameAspects).getOrThrow()
 
     val currentSettings = getCurrentSettingsUseCase().getOrThrow().first()
     updateSettingsUseCase(currentSettings.copy(mod = gameModRepository.getDefaultGameMod()))

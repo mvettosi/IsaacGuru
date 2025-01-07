@@ -12,7 +12,6 @@ class GameAspectRepositoryImpl(private val defaultGameDataSource: DefaultGameDat
     TODO("Not yet implemented")
   }
 
-  override suspend fun loadDefaultGameAspects() {
-    val defaultGameAspects = defaultGameDataSource.getDefaultGameAspects().toDomain()
-  }
+  override suspend fun getDefaultGameAspects() =
+      defaultGameDataSource.getDefaultGameAspects().toDomain()
 }

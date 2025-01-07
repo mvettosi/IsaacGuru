@@ -6,6 +6,8 @@ import co.touchlab.kermit.Logger
 import com.isaacguru.domain.collectable.item.model.ItemFilters
 import com.isaacguru.domain.collectable.item.usecase.GetItemsUseCase
 import com.isaacguru.presentation.features.inventory.items.mapper.toViewItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -45,7 +47,7 @@ class ItemsViewModel(private val getItemsUseCase: GetItemsUseCase) : ViewModel()
   }
 
   private fun filterItems(itemFilters: ItemFilters): Job =
-      viewModelScope.launch {
+      viewModelScope.launch(Dispatchers.IO) {
         _viewState.update { it.copy(isLoading = true) }
         getItemsUseCase(itemFilters)
             .onSuccess { items ->

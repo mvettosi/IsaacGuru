@@ -1,6 +1,6 @@
 package com.isaacguru.di
 
-import com.isaacguru.data.db.converters.DatabaseFactory
+import com.isaacguru.data.db.DatabaseFactory
 import org.koin.android.ext.koin.androidApplication
 import org.koin.core.module.Module
 import org.koin.dsl.module

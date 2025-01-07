@@ -5,5 +5,5 @@ import com.isaacguru.domain.gamemod.model.GameMod
 
 interface GameAspectRepository {
   suspend fun getGameAspects(mod: GameMod): GameAspects
-  suspend fun loadDefaultGameAspects()
+  suspend fun getDefaultGameAspects(): GameAspects
 }
