@@ -64,6 +64,15 @@ kotlin {
       implementation(libs.bundles.coil)
 
       implementation(libs.kermit)
+
+      implementation(libs.flowmvi.core)
+      implementation(libs.flowmvi.test)
+      implementation(libs.flowmvi.compose)
+      implementation(libs.flowmvi.android)
+      implementation(libs.flowmvi.savedstate)
+      implementation(libs.flowmvi.debugger)
+      implementation(libs.flowmvi.essenty)
+      implementation(libs.flowmvi.essenty.compose)
     }
     //    desktopMain.dependencies {
     //      implementation(compose.desktop.currentOs)

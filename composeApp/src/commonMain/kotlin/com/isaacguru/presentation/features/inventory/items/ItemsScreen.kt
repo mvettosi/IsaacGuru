@@ -2,23 +2,27 @@ package com.isaacguru.presentation.features.inventory.items
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.isaacguru.di.storeViewModel
 import com.isaacguru.presentation.features.inventory.components.InventoryScreen
 import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
-import org.koin.compose.viewmodel.koinViewModel
+import pro.respawn.flowmvi.api.Store
+import pro.respawn.flowmvi.compose.dsl.subscribe
 
 @Composable
 fun ItemsScreen(
-    viewModel: ItemsViewModel = koinViewModel(),
+    store: Store<ItemsState, ItemsIntent, ItemsAction> =
+        storeViewModel<ItemsContainer, ItemsState, ItemsIntent, ItemsAction>(),
     onBackClick: () -> Unit,
     displayItemDetails: (InventoryItem) -> Unit
-) {
-  val viewState by viewModel.state.collectAsStateWithLifecycle()
-  InventoryScreen(
-      title = "Items",
-      onBackClick = onBackClick,
-      defaultToList = false,
-      isLoading = viewState.isLoading,
-      inventoryItems = viewState.items,
-      onInventoryItemClick = displayItemDetails)
-}
+) =
+    with(store) {
+      val viewState by subscribe {}
+
+      InventoryScreen(
+          title = "Items",
+          onBackClick = onBackClick,
+          defaultToList = false,
+          isLoading = viewState.isLoading,
+          inventoryItems = viewState.items,
+          onInventoryItemClick = displayItemDetails)
+    }
