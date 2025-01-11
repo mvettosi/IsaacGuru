@@ -8,7 +8,7 @@ import androidx.navigation.compose.composable
 import com.isaacguru.presentation.features.inventory.characters.CharactersScreen
 import com.isaacguru.presentation.features.inventory.home.InventoryHomeScreen
 import com.isaacguru.presentation.features.inventory.items.ItemsScreen
-import com.isaacguru.presentation.features.inventory.items.detail.ItemDetailsScreen
+import com.isaacguru.presentation.features.inventory.items.detail.ItemDetailsScreenRoot
 import com.isaacguru.presentation.features.inventory.pickups.PickupsScreen
 import com.isaacguru.presentation.features.inventory.transformations.TransformationsScreen
 import com.isaacguru.presentation.features.inventory.trinkets.TrinketsScreen
@@ -49,7 +49,7 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modif
 
     // Inventory details
     composable<Screen.Inventory.Detail.Item> {
-      ItemDetailsScreen(onBackClick = navController::popBackStack)
+      ItemDetailsScreenRoot(onBackClick = navController::popBackStack)
     }
   }
 }
