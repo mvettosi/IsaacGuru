@@ -9,6 +9,7 @@ import com.isaacguru.data.gamemod.default.DefaultGameDataSource
 import com.isaacguru.data.item.ItemRepositoryImpl
 import com.isaacguru.data.settings.DataStoreSettingsRepository
 import com.isaacguru.domain.collectable.item.repository.ItemRepository
+import com.isaacguru.domain.collectable.item.usecase.GetItemUseCase
 import com.isaacguru.domain.collectable.item.usecase.GetItemsUseCase
 import com.isaacguru.domain.device.usecase.IsNetworkAvailableUseCase
 import com.isaacguru.domain.gamemod.repository.GameAspectRepository
@@ -60,6 +61,7 @@ val sharedModule = module {
   singleOf(::GetCurrentSettingsUseCase)
   singleOf(::LoadDataUseCase)
   singleOf(::GetItemsUseCase)
+  singleOf(::GetItemUseCase)
 
   // View Models
   viewModelOf(::AppViewModel)

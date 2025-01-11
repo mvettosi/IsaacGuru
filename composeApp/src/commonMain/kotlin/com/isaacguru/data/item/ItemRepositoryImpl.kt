@@ -1,5 +1,6 @@
 package com.isaacguru.data.item
 
+import com.isaacguru.data.db.exception.DataNotFoundException
 import com.isaacguru.data.item.local.datasource.ItemDataSource
 import com.isaacguru.data.item.local.mapper.toDomain
 import com.isaacguru.data.item.local.mapper.toEntity
@@ -12,6 +13,9 @@ class ItemRepositoryImpl(
     private val itemDataSource: ItemDataSource,
 //  private val itemPoolDataSource: ItemPoolDataSource,
 ) : ItemRepository {
+  override suspend fun getItem(itemId: String): Item =
+      itemDataSource.getItem(itemId)?.toDomain() ?: throw DataNotFoundException()
+
   override suspend fun getItems(itemFilters: ItemFilters): List<Item> =
       itemDataSource.getAllItems().map { it.toDomain() }
 
