@@ -31,7 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
 import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
-import com.isaacguru.presentation.util.components.LoadingContent
+import com.isaacguru.presentation.shared.components.LoadingContent
 
 @Composable
 fun InventoryScreen(

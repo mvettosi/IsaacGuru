@@ -8,7 +8,7 @@ import co.touchlab.kermit.Logger
 import com.isaacguru.domain.collectable.item.model.Item
 import com.isaacguru.domain.collectable.item.usecase.GetItemUseCase
 import com.isaacguru.presentation.navigation.Screen
-import com.isaacguru.presentation.util.stateWith
+import com.isaacguru.presentation.shared.stateWith
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.channels.Channel

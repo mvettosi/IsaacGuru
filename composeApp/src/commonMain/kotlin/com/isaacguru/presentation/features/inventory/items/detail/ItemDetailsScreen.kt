@@ -3,14 +3,17 @@ package com.isaacguru.presentation.features.inventory.items.detail
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.isaacguru.presentation.features.inventory.components.InventoryTopBar
-import com.isaacguru.presentation.util.ObserveEvents
+import com.isaacguru.presentation.features.inventory.components.DetailsTopBar
+import com.isaacguru.presentation.shared.ObserveEvents
+import com.isaacguru.presentation.shared.QuoteColor
+import com.isaacguru.presentation.shared.components.BrandText
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -42,8 +45,10 @@ fun ItemDetailsScreen(
       Text(text = viewState.error.message ?: "Unknown error")
     }
     if (viewState.item != null) {
-      InventoryTopBar(
-          title = viewState.item.name, onBackClick = { intent(ItemDetailsIntent.NavigateBack) })
+      DetailsTopBar(
+          gameAspect = viewState.item, onBackClick = { intent(ItemDetailsIntent.NavigateBack) })
+      BrandText(text = viewState.item.name, style = MaterialTheme.typography.headlineLarge)
+      viewState.item.quote?.let { Text(text = "\"$it\"", color = QuoteColor) }
     }
   }
 }
