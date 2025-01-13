@@ -19,7 +19,7 @@ import com.isaacguru.presentation.features.settings.SettingsScreen
 fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modifier) {
   NavHost(
       navController = navController,
-      startDestination = Screen.Inventory.Detail.Item("c52"),
+      startDestination = Screen.Inventory.Detail.Item("5"),
       modifier = modifier) {
     // Home screen tabs
     composable<Screen.Inventory.Home> {

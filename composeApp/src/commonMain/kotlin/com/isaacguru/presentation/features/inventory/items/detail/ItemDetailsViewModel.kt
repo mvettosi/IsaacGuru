@@ -9,10 +9,11 @@ import com.isaacguru.domain.collectable.item.model.Item
 import com.isaacguru.domain.collectable.item.usecase.GetItemUseCase
 import com.isaacguru.presentation.navigation.Screen
 import com.isaacguru.presentation.shared.stateWith
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
@@ -30,8 +31,8 @@ class ItemDetailsViewModel(
   val viewState =
       _viewState.stateWith(viewModelScope) {
         onStart {
-          Logger.i { "Fetching data for ${params.id}" }
-          fetchItemData()
+          Logger.i { "Observing data for item #${params.id}" }
+          observeItemData()
         }
       }
 
@@ -48,25 +49,20 @@ class ItemDetailsViewModel(
     }
   }
 
-  private fun fetchItemData() =
-      viewModelScope.launch(Dispatchers.IO) {
-        getItemUseCase(params.id)
-            .onSuccess { result ->
-              Logger.i { "Fetched item ${result.name}" }
-              _viewState.update { it.copy(isLoading = false, item = result) }
-            }
-            .onFailure {
-              Logger.e { "Failed to fetch item ${params.id}" }
-              _viewState.update { it.copy(isLoading = false, error = it.error) }
-            }
-      }
+  private fun observeItemData() =
+      getItemUseCase(params.id)
+          .onEach { result ->
+            Logger.i { "Fetched item ${result.name}" }
+            _viewState.update { it.copy(item = result) }
+          }
+          .catch { error ->
+            Logger.e(error) { "Error fetching item ${params.id}" }
+            _viewState.update { it.copy(error = error) }
+          }
+          .launchIn(viewModelScope)
 }
 
-data class ItemDetailsViewState(
-    val isLoading: Boolean = true,
-    val error: Throwable? = null,
-    val item: Item? = null
-)
+data class ItemDetailsViewState(val error: Throwable? = null, val item: Item? = null)
 
 sealed interface ItemDetailsIntent {
   data object NavigateBack : ItemDetailsIntent

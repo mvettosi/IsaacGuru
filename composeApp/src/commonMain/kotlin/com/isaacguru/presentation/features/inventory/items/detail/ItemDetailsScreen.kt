@@ -2,8 +2,8 @@ package com.isaacguru.presentation.features.inventory.items.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,6 +14,7 @@ import com.isaacguru.presentation.features.inventory.components.DetailsTopBar
 import com.isaacguru.presentation.shared.ObserveEvents
 import com.isaacguru.presentation.shared.QuoteColor
 import com.isaacguru.presentation.shared.components.BrandText
+import com.isaacguru.presentation.shared.components.LoadingContent
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -37,18 +38,19 @@ fun ItemDetailsScreen(
     viewState: ItemDetailsViewState,
     intent: (ItemDetailsIntent) -> Unit,
 ) {
-  Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-    if (viewState.isLoading) {
-      CircularProgressIndicator()
-    }
-    if (viewState.error != null) {
-      Text(text = viewState.error.message ?: "Unknown error")
-    }
-    if (viewState.item != null) {
-      DetailsTopBar(
-          gameAspect = viewState.item, onBackClick = { intent(ItemDetailsIntent.NavigateBack) })
-      BrandText(text = viewState.item.name, style = MaterialTheme.typography.headlineLarge)
-      viewState.item.quote?.let { Text(text = "\"$it\"", color = QuoteColor) }
+  Surface {
+    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+      if (viewState.error != null) {
+        Text(text = viewState.error.message ?: "Unknown error")
+      }
+      if (viewState.item == null) {
+        LoadingContent()
+      } else {
+        DetailsTopBar(
+            gameAspect = viewState.item, onBackClick = { intent(ItemDetailsIntent.NavigateBack) })
+        BrandText(text = viewState.item.name, style = MaterialTheme.typography.displayMedium)
+        viewState.item.quote?.let { Text(text = "\"$it\"", color = QuoteColor) }
+      }
     }
   }
 }

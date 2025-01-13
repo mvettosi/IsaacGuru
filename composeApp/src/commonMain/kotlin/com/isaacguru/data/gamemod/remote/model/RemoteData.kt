@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class RemoteData(
-    val id: String? = null,
+    val id_raw: String? = null,
     val name: String? = null,
     val type: String? = null,
     val main_type: String? = null,

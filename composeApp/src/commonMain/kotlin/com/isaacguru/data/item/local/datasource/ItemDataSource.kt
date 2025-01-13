@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.isaacguru.data.item.local.model.ItemEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ItemDataSource {
@@ -13,5 +14,5 @@ interface ItemDataSource {
 
   @Query("SELECT * FROM ItemEntity") fun getAllItems(): List<ItemEntity>
 
-  @Query("SELECT * FROM ItemEntity WHERE id = :id") suspend fun getItem(id: String): ItemEntity?
+  @Query("SELECT * FROM ItemEntity WHERE id = :id") fun getItem(id: String): Flow<ItemEntity?>
 }

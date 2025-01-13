@@ -29,7 +29,7 @@ fun RemoteData.toItem(): Item =
     when (display_type) {
       "Active item" ->
           Item.Active(
-              id = id ?: "",
+              id = id_raw ?: "",
               name = name ?: "",
               description = bot_description ?: "",
               image = gfxfull.toResourceUri(),
@@ -46,7 +46,7 @@ fun RemoteData.toItem(): Item =
           )
       else ->
           Item.Passive(
-              id = id ?: "",
+              id = id_raw ?: "",
               name = name ?: "",
               description = bot_description ?: "",
               image = gfxfull.toResourceUri(),
@@ -78,7 +78,7 @@ fun String?.toChargeType(): Item.Active.ChargeType =
 
 fun RemoteData.toTrinket(): Trinket =
     Trinket(
-        id = id ?: "",
+        id = id_raw ?: "",
         name = name ?: "",
         description = description ?: "",
         image = gfxfull.toResourceUri(),
@@ -89,7 +89,7 @@ fun RemoteData.toTrinket(): Trinket =
 
 fun RemoteData.toPickup(): Pickup =
     Pickup(
-        id = id ?: "",
+        id = id_raw ?: "",
         name = name ?: "",
         description = description ?: "",
         image = gfxfull.toResourceUri(),
@@ -99,7 +99,7 @@ fun RemoteData.toPickup(): Pickup =
 
 fun RemoteData.toMachine(): Machine =
     Machine(
-        id = id ?: "",
+        id = id_raw ?: "",
         name = name ?: "",
         description = description ?: "",
         image = gfxfull.toResourceUri(),
@@ -108,7 +108,7 @@ fun RemoteData.toMachine(): Machine =
 
 fun RemoteData.toCharacter(): Character =
     Character(
-        id = id ?: "",
+        id = id_raw ?: "",
         name = name ?: "",
         description = description ?: "",
         image = gfxfull.toResourceUri(),
@@ -119,7 +119,7 @@ fun RemoteData.toCharacter(): Character =
 
 fun RemoteData.toTransformation(): Transformation =
     Transformation(
-        id = id ?: "",
+        id = id_raw ?: "",
         name = name ?: "",
         description = description ?: "",
         image = gfxfull.toResourceUri(),
@@ -129,7 +129,7 @@ fun RemoteData.toTransformation(): Transformation =
 
 fun RemoteData.toCurse(): Curse =
     Curse(
-        id = id ?: "",
+        id = id_raw ?: "",
         name = name ?: "",
         description = description ?: "",
         image = gfxfull.toResourceUri(),

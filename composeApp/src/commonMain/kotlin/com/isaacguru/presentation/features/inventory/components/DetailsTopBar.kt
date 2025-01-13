@@ -1,6 +1,7 @@
 package com.isaacguru.presentation.features.inventory.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -12,6 +13,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,8 @@ fun DetailsTopBar(
 ) {
   CenterAlignedTopAppBar(
       windowInsets = WindowInsets(0.dp),
+      colors =
+          TopAppBarDefaults.centerAlignedTopAppBarColors().copy(containerColor = Color.Transparent),
       navigationIcon = {
         if (onBackClick != null) {
           IconButton(onClick = onBackClick) {
@@ -37,13 +41,17 @@ fun DetailsTopBar(
       },
       title = {
         gameAspect?.let {
-          Text(
-              text = "#${gameAspect.id}",
-              style = MaterialTheme.typography.labelMedium.copy(Color.White),
+          Box(
               modifier =
                   Modifier.background(
                           color = gameAspect.getBadgeColour(), shape = RoundedCornerShape(4.dp))
-                      .padding(4.dp))
+                      .padding(vertical = 4.dp, horizontal = 10.dp)) {
+            Text(
+                text = "#${gameAspect.id}",
+                style = MaterialTheme.typography.headlineSmall.copy(Color.White),
+                modifier = Modifier,
+            )
+          }
         }
       },
   )
