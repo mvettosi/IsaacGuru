@@ -7,8 +7,10 @@ import androidx.compose.ui.graphics.Color
 val SeparatorColor = Color("#8c0008".toColorInt())
 
 // Item Details
+val ItemDetailsBackgroundColor = Color(red = 51f, green = 51f, blue = 51f, alpha = 0.05f)
 val ItemIdColor = Color("#3f51b5".toColorInt())
 val QuoteColor = Color("#0089FF".toColorInt())
+val Divider = Color("#b6b4b4".toColorInt())
 
 // Color Scheme
 val primaryDark = Color(0xFFD3BCFD)
