@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -26,7 +27,7 @@ import com.isaacguru.presentation.shared.components.LoadingContent
 import isaacguru.composeapp.generated.resources.Res
 import isaacguru.composeapp.generated.resources.star_empty
 import isaacguru.composeapp.generated.resources.star_full
-import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.imageResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -67,8 +68,7 @@ fun ItemDetailsScreen(
         }
         Image(
             painter =
-                rememberAsyncImagePainter(
-                    "https://isaacguru.com/core/data/isaac/collectibles/collectibles_005_myreflection.png"),
+                rememberAsyncImagePainter(viewState.item.image, filterQuality = FilterQuality.None),
             contentDescription = viewState.item.name,
             modifier = Modifier.requiredSize(150.dp))
       }
@@ -81,12 +81,13 @@ fun QualityRow(quality: Int) {
   Row {
     repeat(4) { index ->
       Image(
-          painter =
-              painterResource(
+          bitmap =
+              imageResource(
                   if (index < quality) Res.drawable.star_full else Res.drawable.star_empty),
           contentDescription = "Quality",
           modifier = Modifier.requiredHeight(50.dp).align(Alignment.CenterVertically),
-          contentScale = ContentScale.FillHeight)
+          contentScale = ContentScale.FillHeight,
+          filterQuality = FilterQuality.None)
     }
   }
 }
