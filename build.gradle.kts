@@ -27,3 +27,5 @@ configure<SpotlessExtension> {
     ktfmt()
   }
 }
+
+tasks.register("regenerateRes") { dependsOn(":composeApp:generateResourceAccessorsForCommonMain") }
