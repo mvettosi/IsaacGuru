@@ -66,6 +66,9 @@ fun ItemDetailsScreen(
         viewState.item.raw.quote?.let {
           Text(text = "\"$it\"", color = QuoteColor, style = MaterialTheme.typography.headlineSmall)
         }
+        viewState.item.richPools?.let {
+          Text(text = viewState.item.richPools, inlineContent = inlineDiscordMap)
+        }
         GameAspectImage(modifier = Modifier.requiredSize(150.dp), gameAspect = viewState.item.raw)
         Text(
             text = viewState.item.richDescription,
