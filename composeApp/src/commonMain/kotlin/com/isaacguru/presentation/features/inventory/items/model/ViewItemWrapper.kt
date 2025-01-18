@@ -9,11 +9,13 @@ import com.isaacguru.presentation.shared.fromPools
 data class ViewItemWrapper<T : GameAspect>(
     val raw: T,
     val richPools: AnnotatedString?,
-    val richDescription: AnnotatedString
+    val richDescription: AnnotatedString,
+    val subtitle: String? = null
 )
 
 fun <T : GameAspect> viewWrapperOf(item: T) =
     ViewItemWrapper(
         raw = item,
         richPools = (item as? Item)?.itemPools?.fromPools(),
-        richDescription = item.description.fromDiscordString())
+        richDescription = item.description.fromDiscordString(),
+        subtitle = if (item is Item.Active) "Active Item" else "Passive Item")

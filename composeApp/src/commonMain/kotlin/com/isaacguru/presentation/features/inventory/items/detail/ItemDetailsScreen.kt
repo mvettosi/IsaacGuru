@@ -4,8 +4,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -13,9 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.isaacguru.presentation.features.inventory.components.DetailsTopBar
+import com.isaacguru.presentation.shared.Divider
 import com.isaacguru.presentation.shared.ItemDetailsBackgroundColor
 import com.isaacguru.presentation.shared.ObserveEvents
 import com.isaacguru.presentation.shared.QuoteColor
@@ -51,7 +56,9 @@ fun ItemDetailsScreen(
     intent: (ItemDetailsIntent) -> Unit,
 ) {
   Surface(color = ItemDetailsBackgroundColor, contentColor = MaterialTheme.colorScheme.onSurface) {
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
+    Column(
+        modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally) {
       if (viewState.error != null) {
         Text(text = viewState.error.message ?: "Unknown error")
       }
@@ -66,14 +73,25 @@ fun ItemDetailsScreen(
         viewState.item.raw.quote?.let {
           Text(text = "\"$it\"", color = QuoteColor, style = MaterialTheme.typography.headlineSmall)
         }
-        viewState.item.richPools?.let {
-          Text(text = viewState.item.richPools, inlineContent = inlineDiscordMap)
-        }
         GameAspectImage(modifier = Modifier.requiredSize(150.dp), gameAspect = viewState.item.raw)
+        viewState.item.subtitle?.let {
+          Text(
+              text = it,
+              style = MaterialTheme.typography.titleLarge.copy(fontStyle = Italic),
+              color = Color.Gray)
+        }
+        DetailsDivider()
         Text(
             text = viewState.item.richDescription,
             inlineContent = inlineDiscordMap,
             modifier = Modifier.fillMaxWidth())
+        DetailsDivider()
+        viewState.item.richPools?.let {
+          Text(
+              text = viewState.item.richPools,
+              inlineContent = inlineDiscordMap,
+              modifier = Modifier.fillMaxWidth())
+        }
       }
     }
   }
@@ -89,4 +107,10 @@ fun QualityRow(quality: Int) {
           contentDescription = "Quality")
     }
   }
+}
+
+@Composable
+fun DetailsDivider() {
+  HorizontalDivider(
+      thickness = 1.dp, color = Divider, modifier = Modifier.padding(vertical = 20.dp))
 }
