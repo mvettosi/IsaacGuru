@@ -7,6 +7,8 @@ import androidx.navigation.toRoute
 import co.touchlab.kermit.Logger
 import com.isaacguru.domain.collectable.item.model.Item
 import com.isaacguru.domain.collectable.item.usecase.GetItemUseCase
+import com.isaacguru.presentation.features.inventory.items.model.ViewItemWrapper
+import com.isaacguru.presentation.features.inventory.items.model.viewWrapperOf
 import com.isaacguru.presentation.navigation.Screen
 import com.isaacguru.presentation.shared.stateWith
 import kotlinx.coroutines.channels.Channel
@@ -53,7 +55,7 @@ class ItemDetailsViewModel(
       getItemUseCase(params.id)
           .onEach { result ->
             Logger.i { "Fetched item ${result.name}" }
-            _viewState.update { it.copy(item = result) }
+            _viewState.update { it.copy(item = viewWrapperOf(item = result)) }
           }
           .catch { error ->
             Logger.e(error) { "Error fetching item ${params.id}" }
@@ -62,7 +64,10 @@ class ItemDetailsViewModel(
           .launchIn(viewModelScope)
 }
 
-data class ItemDetailsViewState(val error: Throwable? = null, val item: Item? = null)
+data class ItemDetailsViewState(
+    val error: Throwable? = null,
+    val item: ViewItemWrapper<Item>? = null
+)
 
 sealed interface ItemDetailsIntent {
   data object NavigateBack : ItemDetailsIntent
