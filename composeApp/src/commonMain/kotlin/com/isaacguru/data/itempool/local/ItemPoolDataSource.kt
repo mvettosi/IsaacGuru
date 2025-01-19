@@ -1,9 +1,9 @@
-package com.isaacguru.data.item.local.datasource
+package com.isaacguru.data.itempool.local
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.isaacguru.data.item.local.model.ItemPoolEntity
+import com.isaacguru.data.itempool.local.model.ItemPoolEntity
 
 @Dao
 interface ItemPoolDataSource {

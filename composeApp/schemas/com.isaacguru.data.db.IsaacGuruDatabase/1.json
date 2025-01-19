@@ -2,10 +2,10 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "08300aa7b2bb992aa77815925d0a7343",
+    "identityHash": "8f1706fe5d04d5e7bc1396849be8b2c1",
     "entities": [
       {
-        "tableName": "ItemEntity",
+        "tableName": "InventoryItemEntity",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `keywords` TEXT NOT NULL, `quote` TEXT, `unlockMethod` TEXT, `costume` TEXT NOT NULL, `itemPools` TEXT NOT NULL, `quality` INTEGER NOT NULL, `transformations` TEXT NOT NULL, `type` TEXT NOT NULL, `maxCharges` INTEGER, `chargeType` TEXT, `cooldown` INTEGER, PRIMARY KEY(`id`))",
         "fields": [
           {
@@ -100,11 +100,41 @@
             "id"
           ]
         }
+      },
+      {
+        "tableName": "ItemPoolEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '08300aa7b2bb992aa77815925d0a7343')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8f1706fe5d04d5e7bc1396849be8b2c1')"
     ]
   }
 }

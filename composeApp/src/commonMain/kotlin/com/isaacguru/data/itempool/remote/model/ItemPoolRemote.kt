@@ -1,9 +1,9 @@
-package com.isaacguru.data.gamemod.remote.model
+package com.isaacguru.data.itempool.remote.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RemoteItemPool(
+data class ItemPoolRemote(
     val name: String,
     val description: String,
     val x: String,

@@ -1,11 +1,11 @@
-package com.isaacguru.data.item.local.mapper
+package com.isaacguru.data.inventory.local.mapper
 
-import com.isaacguru.data.item.local.model.ItemEntity
+import com.isaacguru.data.inventory.local.model.InventoryItemEntity
 import com.isaacguru.domain.collectable.item.model.Item
 import com.isaacguru.domain.collectable.item.model.ItemType
 
 fun Item.toEntity() =
-    ItemEntity(
+    InventoryItemEntity(
         id = id,
         name = name,
         description = description,
@@ -23,7 +23,7 @@ fun Item.toEntity() =
         cooldown = if (this is Item.Active) cooldown else null,
     )
 
-fun ItemEntity.toDomain() =
+fun InventoryItemEntity.toDomain() =
     when (type) {
       ItemType.ACTIVE ->
           Item.Active(

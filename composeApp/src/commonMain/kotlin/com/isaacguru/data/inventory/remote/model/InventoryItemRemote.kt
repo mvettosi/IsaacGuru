@@ -1,9 +1,9 @@
-package com.isaacguru.data.gamemod.remote.model
+package com.isaacguru.data.inventory.remote.model
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RemoteData(
+data class InventoryItemRemote(
     val id_raw: String? = null,
     val name: String? = null,
     val type: String? = null,

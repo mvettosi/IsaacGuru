@@ -1,7 +1,7 @@
-package com.isaacguru.data.gamemod.remote.mapper
+package com.isaacguru.data.inventory.remote.mapper
 
-import com.isaacguru.data.gamemod.remote.model.RemoteData
-import com.isaacguru.data.gamemod.remote.model.RemoteGameAspects
+import com.isaacguru.data.inventory.remote.model.InventoryItemRemote
+import com.isaacguru.data.inventory.remote.model.InventoryRemote
 import com.isaacguru.domain.character.Character
 import com.isaacguru.domain.collectable.item.model.Item
 import com.isaacguru.domain.collectable.pickup.model.Pickup
@@ -14,7 +14,7 @@ import isaacguru.composeapp.generated.resources.Res
 import kotlinx.io.files.Path
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
-fun RemoteGameAspects.toDomain(): GameAspects =
+fun InventoryRemote.toDomain(): GameAspects =
     GameAspects(
         items = item.map { it.toItem() },
         trinkets = trinket.map { it.toTrinket() },
@@ -25,7 +25,7 @@ fun RemoteGameAspects.toDomain(): GameAspects =
         curses = curse.map { it.toCurse() },
     )
 
-fun RemoteData.toItem(): Item =
+fun InventoryItemRemote.toItem(): Item =
     when (display_type) {
       "Active item" ->
           Item.Active(
@@ -76,7 +76,7 @@ fun String?.toChargeType(): Item.Active.ChargeType =
       else -> Item.Active.ChargeType.DEFAULT
     }
 
-fun RemoteData.toTrinket(): Trinket =
+fun InventoryItemRemote.toTrinket(): Trinket =
     Trinket(
         id = id_raw ?: "",
         name = name ?: "",
@@ -87,7 +87,7 @@ fun RemoteData.toTrinket(): Trinket =
         unlockMethod = unlock_method,
     )
 
-fun RemoteData.toPickup(): Pickup =
+fun InventoryItemRemote.toPickup(): Pickup =
     Pickup(
         id = id_raw ?: "",
         name = name ?: "",
@@ -97,7 +97,7 @@ fun RemoteData.toPickup(): Pickup =
         unlockMethod = unlock_method,
     )
 
-fun RemoteData.toMachine(): Machine =
+fun InventoryItemRemote.toMachine(): Machine =
     Machine(
         id = id_raw ?: "",
         name = name ?: "",
@@ -106,7 +106,7 @@ fun RemoteData.toMachine(): Machine =
         keywords = keywords.splitToKeywords(),
     )
 
-fun RemoteData.toCharacter(): Character =
+fun InventoryItemRemote.toCharacter(): Character =
     Character(
         id = id_raw ?: "",
         name = name ?: "",
@@ -117,7 +117,7 @@ fun RemoteData.toCharacter(): Character =
         unlockMethod = unlock_method,
     )
 
-fun RemoteData.toTransformation(): Transformation =
+fun InventoryItemRemote.toTransformation(): Transformation =
     Transformation(
         id = id_raw ?: "",
         name = name ?: "",
@@ -127,7 +127,7 @@ fun RemoteData.toTransformation(): Transformation =
         costume = costume ?: "",
     )
 
-fun RemoteData.toCurse(): Curse =
+fun InventoryItemRemote.toCurse(): Curse =
     Curse(
         id = id_raw ?: "",
         name = name ?: "",

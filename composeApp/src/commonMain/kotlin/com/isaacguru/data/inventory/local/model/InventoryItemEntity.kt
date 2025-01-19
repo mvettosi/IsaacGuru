@@ -1,4 +1,4 @@
-package com.isaacguru.data.item.local.model
+package com.isaacguru.data.inventory.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,7 +6,7 @@ import com.isaacguru.domain.collectable.item.model.Item.Active.ChargeType
 import com.isaacguru.domain.collectable.item.model.ItemType
 
 @Entity
-data class ItemEntity(
+data class InventoryItemEntity(
     @PrimaryKey(autoGenerate = false) val id: String,
     val name: String,
     val description: String,

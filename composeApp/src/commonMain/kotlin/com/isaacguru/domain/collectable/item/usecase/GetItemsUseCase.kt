@@ -1,10 +1,10 @@
 package com.isaacguru.domain.collectable.item.usecase
 
 import com.isaacguru.domain.collectable.item.model.ItemFilters
-import com.isaacguru.domain.collectable.item.repository.ItemRepository
+import com.isaacguru.domain.collectable.item.repository.InventoryRepository
 
-class GetItemsUseCase(private val itemRepository: ItemRepository) {
+class GetItemsUseCase(private val inventoryRepository: InventoryRepository) {
   suspend operator fun invoke(itemFilters: ItemFilters) = runCatching {
-    itemRepository.getItems(itemFilters = itemFilters)
+    inventoryRepository.getItems(itemFilters = itemFilters)
   }
 }

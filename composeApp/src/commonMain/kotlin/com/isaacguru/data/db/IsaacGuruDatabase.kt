@@ -5,18 +5,20 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.isaacguru.data.db.converters.StringListTypeConverter
-import com.isaacguru.data.item.local.datasource.ItemDataSource
-import com.isaacguru.data.item.local.model.ItemEntity
+import com.isaacguru.data.inventory.local.InventoryLocalDataSource
+import com.isaacguru.data.inventory.local.model.InventoryItemEntity
+import com.isaacguru.data.itempool.local.ItemPoolDataSource
+import com.isaacguru.data.itempool.local.model.ItemPoolEntity
 
-@Database(entities = [ItemEntity::class], version = 1)
+@Database(entities = [InventoryItemEntity::class, ItemPoolEntity::class], version = 1)
 @TypeConverters(StringListTypeConverter::class)
 @ConstructedBy(IsaacGuruDatabaseConstructor::class)
 abstract class IsaacGuruDatabase : RoomDatabase() {
-  // Game Aspects
-  abstract val itemDataSource: ItemDataSource
+  // Inventory
+  abstract val inventoryLocalDataSource: InventoryLocalDataSource
 
   // Item Pools
-  //  abstract val itemPoolDataSource: ItemPoolDataSource
+  abstract val itemPoolDataSource: ItemPoolDataSource
 
   // Game Mods
 

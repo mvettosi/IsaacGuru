@@ -3,13 +3,13 @@ package com.isaacguru.domain.settings.usecase
 import co.touchlab.kermit.Logger
 import com.isaacguru.domain.device.usecase.IsNetworkAvailableUseCase
 import com.isaacguru.domain.gamemod.usecase.GetGameModsUseCase
-import com.isaacguru.domain.gamemod.usecase.LoadDefaultModUseCase
+import com.isaacguru.domain.gamemod.usecase.LoadDefaultInventoryUseCase
 import com.isaacguru.domain.gamemod.usecase.SetGameModUseCase
 import kotlinx.coroutines.flow.firstOrNull
 
 class LoadDataUseCase(
     private val getCurrentSettingsUseCase: GetCurrentSettingsUseCase,
-    private val loadDefaultModUseCase: LoadDefaultModUseCase,
+    private val loadDefaultInventoryUseCase: LoadDefaultInventoryUseCase,
     private val isNetworkAvailableUseCase: IsNetworkAvailableUseCase,
     private val getGameModsUseCase: GetGameModsUseCase,
     private val setGameModUseCase: SetGameModUseCase
@@ -19,7 +19,7 @@ class LoadDataUseCase(
 
     if (currentMod == null) {
       Logger.d { "No mods found, initialising" }
-      loadDefaultModUseCase().getOrThrow()
+      loadDefaultInventoryUseCase().getOrThrow()
       Logger.d { "Default database initialised" }
     }
 

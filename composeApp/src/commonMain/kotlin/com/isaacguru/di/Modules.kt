@@ -3,21 +3,23 @@ package com.isaacguru.di
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.isaacguru.data.db.DatabaseFactory
 import com.isaacguru.data.db.IsaacGuruDatabase
-import com.isaacguru.data.gamemod.GameAspectRepositoryImpl
 import com.isaacguru.data.gamemod.GameModRepositoryImpl
-import com.isaacguru.data.gamemod.default.DefaultGameDataSource
-import com.isaacguru.data.item.ItemRepositoryImpl
+import com.isaacguru.data.gamemod.remote.GameModRemoteDataSource
+import com.isaacguru.data.inventory.InventoryRepositoryImpl
+import com.isaacguru.data.inventory.remote.InventoryRemoteDataSource
+import com.isaacguru.data.itempool.ItemPoolRepositoryImpl
+import com.isaacguru.data.itempool.remote.ItemPoolRemoteDataSource
 import com.isaacguru.data.settings.DataStoreSettingsRepository
-import com.isaacguru.domain.collectable.item.repository.ItemRepository
+import com.isaacguru.domain.collectable.item.repository.InventoryRepository
 import com.isaacguru.domain.collectable.item.usecase.GetItemUseCase
 import com.isaacguru.domain.collectable.item.usecase.GetItemsUseCase
 import com.isaacguru.domain.device.usecase.IsNetworkAvailableUseCase
-import com.isaacguru.domain.gamemod.repository.GameAspectRepository
 import com.isaacguru.domain.gamemod.repository.GameModRepository
 import com.isaacguru.domain.gamemod.usecase.GetGameModsUseCase
-import com.isaacguru.domain.gamemod.usecase.LoadDefaultModUseCase
-import com.isaacguru.domain.gamemod.usecase.SetGameAspectsUseCase
+import com.isaacguru.domain.gamemod.usecase.LoadDefaultInventoryUseCase
 import com.isaacguru.domain.gamemod.usecase.SetGameModUseCase
+import com.isaacguru.domain.gamemod.usecase.SetInventoryUseCase
+import com.isaacguru.domain.itempool.repository.ItemPoolRepository
 import com.isaacguru.domain.settings.repository.SettingsRepository
 import com.isaacguru.domain.settings.usecase.GetCurrentSettingsUseCase
 import com.isaacguru.domain.settings.usecase.LoadDataUseCase
@@ -40,21 +42,23 @@ val sharedModule = module {
   single { Json { ignoreUnknownKeys = true } }
 
   // Data Sources
-  single { get<IsaacGuruDatabase>().itemDataSource }
-  //  single { get<IsaacGuruDatabase>().itemPoolDataSource }
-  singleOf(::DefaultGameDataSource)
+  single { get<IsaacGuruDatabase>().inventoryLocalDataSource }
+  single { get<IsaacGuruDatabase>().itemPoolDataSource }
+  singleOf(::GameModRemoteDataSource)
+  singleOf(::ItemPoolRemoteDataSource)
+  singleOf(::InventoryRemoteDataSource)
 
   // Repositories
-  singleOf(::GameAspectRepositoryImpl).bind<GameAspectRepository>()
-  singleOf(::GameModRepositoryImpl).bind<GameModRepository>()
   singleOf(::DataStoreSettingsRepository).bind<SettingsRepository>()
-  singleOf(::ItemRepositoryImpl).bind<ItemRepository>()
+  singleOf(::InventoryRepositoryImpl).bind<InventoryRepository>()
+  singleOf(::ItemPoolRepositoryImpl).bind<ItemPoolRepository>()
+  singleOf(::GameModRepositoryImpl).bind<GameModRepository>()
 
   // Use Cases
-  singleOf(::SetGameAspectsUseCase)
+  singleOf(::SetInventoryUseCase)
   singleOf(::UpdateSettingsUseCase)
   singleOf(::GetCurrentSettingsUseCase)
-  singleOf(::LoadDefaultModUseCase)
+  singleOf(::LoadDefaultInventoryUseCase)
   singleOf(::SetGameModUseCase)
   singleOf(::GetGameModsUseCase)
   singleOf(::IsNetworkAvailableUseCase)
