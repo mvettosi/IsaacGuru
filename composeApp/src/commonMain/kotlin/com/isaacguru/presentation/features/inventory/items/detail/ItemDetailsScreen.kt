@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.isaacguru.domain.inventory.model.Item
 import com.isaacguru.presentation.features.inventory.components.DetailsTopBar
 import com.isaacguru.presentation.shared.Divider
 import com.isaacguru.presentation.shared.ItemDetailsBackgroundColor
@@ -66,14 +67,22 @@ fun ItemDetailsScreen(
         LoadingContent()
       } else {
         DetailsTopBar(
-            gameAspect = viewState.item.raw,
+            inventoryItem = viewState.item.raw,
             onBackClick = { intent(ItemDetailsIntent.NavigateBack) })
-        QualityRow(viewState.item.raw.quality)
-        BrandText(text = viewState.item.raw.name, style = MaterialTheme.typography.displayMedium)
-        viewState.item.raw.quote?.let {
-          Text(text = "\"$it\"", color = QuoteColor, style = MaterialTheme.typography.headlineSmall)
+        if (viewState.item.raw is Item) {
+          QualityRow(viewState.item.raw.quality)
         }
-        GameAspectImage(modifier = Modifier.requiredSize(150.dp), gameAspect = viewState.item.raw)
+        BrandText(text = viewState.item.raw.name, style = MaterialTheme.typography.displayMedium)
+        if (viewState.item.raw is Item) {
+          viewState.item.raw.quote?.let {
+            Text(
+                text = "\"$it\"",
+                color = QuoteColor,
+                style = MaterialTheme.typography.headlineSmall)
+          }
+        }
+        GameAspectImage(
+            modifier = Modifier.requiredSize(150.dp), inventoryItem = viewState.item.raw)
         viewState.item.subtitle?.let {
           Text(
               text = it,

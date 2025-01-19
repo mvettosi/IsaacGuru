@@ -3,7 +3,7 @@ package com.isaacguru.presentation.features.inventory.transformations
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.isaacguru.presentation.features.inventory.components.InventoryScreen
-import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
+import com.isaacguru.presentation.features.inventory.components.model.ViewInventoryItem
 import isaacguru.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 
@@ -14,10 +14,12 @@ fun TransformationsScreen(modifier: Modifier = Modifier, onBackClick: () -> Unit
       title = "Transformations",
       onBackClick = onBackClick,
       defaultToList = false,
-      inventoryItems =
+      viewInventoryItems =
           buildList {
             repeat(100) { index ->
-              add(InventoryItem(name = "Item $index", thumbnail = Res.getUri("files/Isaac.webp")))
+              add(
+                  ViewInventoryItem(
+                      name = "Item $index", thumbnail = Res.getUri("files/Isaac.webp")))
             }
           },
       onInventoryItemClick = {})

@@ -3,8 +3,8 @@ package com.isaacguru.presentation.features.inventory.items
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
-import com.isaacguru.domain.collectable.item.model.ItemFilters
-import com.isaacguru.domain.collectable.item.usecase.GetItemsUseCase
+import com.isaacguru.domain.inventory.model.ItemFilters
+import com.isaacguru.domain.inventory.usecase.GetInventoryUseCase
 import com.isaacguru.presentation.features.inventory.items.mapper.toViewItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ItemsViewModel(private val getItemsUseCase: GetItemsUseCase) : ViewModel() {
+class ItemsViewModel(private val getInventoryUseCase: GetInventoryUseCase) : ViewModel() {
   private var filterJob: Job? = null
 
   private val _viewState = MutableStateFlow(ItemsViewState())
@@ -49,7 +49,7 @@ class ItemsViewModel(private val getItemsUseCase: GetItemsUseCase) : ViewModel()
   private fun filterItems(itemFilters: ItemFilters): Job =
       viewModelScope.launch(Dispatchers.IO) {
         _viewState.update { it.copy(isLoading = true) }
-        getItemsUseCase(itemFilters)
+        getInventoryUseCase(itemFilters)
             .onSuccess { items ->
               _viewState.update {
                 it.copy(items = items.map { item -> item.toViewItem() }, isLoading = false)

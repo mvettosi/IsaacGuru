@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
-import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
+import com.isaacguru.presentation.features.inventory.components.model.ViewInventoryItem
 import com.isaacguru.presentation.shared.components.LoadingContent
 
 @Composable
@@ -40,8 +40,8 @@ fun InventoryScreen(
     defaultToList: Boolean = true,
     displayViewToggle: Boolean = true,
     columns: Int = 5,
-    inventoryItems: List<InventoryItem>,
-    onInventoryItemClick: (InventoryItem) -> Unit,
+    viewInventoryItems: List<ViewInventoryItem>,
+    onInventoryItemClick: (ViewInventoryItem) -> Unit,
     isLoading: Boolean = false
 ) {
   var showList by remember { mutableStateOf(defaultToList) }
@@ -57,10 +57,11 @@ fun InventoryScreen(
           onListClick = if (displayViewToggle) toggleView else null,
       )
       if (showList) {
-        InventoryList(inventoryItems = inventoryItems, onInventoryItemClick = onInventoryItemClick)
+        InventoryList(
+            viewInventoryItems = viewInventoryItems, onInventoryItemClick = onInventoryItemClick)
       } else {
         InventoryGrid(
-            inventoryItems = inventoryItems,
+            viewInventoryItems = viewInventoryItems,
             onInventoryItemClick = onInventoryItemClick,
             columns = columns)
       }
@@ -70,14 +71,14 @@ fun InventoryScreen(
 
 @Composable
 private fun InventoryList(
-    inventoryItems: List<InventoryItem>,
-    onInventoryItemClick: (InventoryItem) -> Unit
+    viewInventoryItems: List<ViewInventoryItem>,
+    onInventoryItemClick: (ViewInventoryItem) -> Unit
 ) {
   LazyColumn(
       verticalArrangement = Arrangement.spacedBy(8.dp),
       contentPadding = (PaddingValues(8.dp)),
   ) {
-    inventoryItems.forEach { inventoryItem ->
+    viewInventoryItems.forEach { inventoryItem ->
       item {
         Row(
             modifier =
@@ -111,12 +112,12 @@ private fun InventoryList(
 
 @Composable
 private fun InventoryGrid(
-    inventoryItems: List<InventoryItem>,
+    viewInventoryItems: List<ViewInventoryItem>,
     columns: Int = 5,
-    onInventoryItemClick: (InventoryItem) -> Unit
+    onInventoryItemClick: (ViewInventoryItem) -> Unit
 ) {
   LazyVerticalGrid(columns = GridCells.Fixed(columns)) {
-    inventoryItems.forEach { inventoryItem ->
+    viewInventoryItems.forEach { inventoryItem ->
       item {
         Box(
             modifier =

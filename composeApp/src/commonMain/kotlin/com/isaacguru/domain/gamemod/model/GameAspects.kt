@@ -1,12 +1,12 @@
 package com.isaacguru.domain.gamemod.model
 
-import com.isaacguru.domain.character.Character
-import com.isaacguru.domain.collectable.item.model.Item
-import com.isaacguru.domain.collectable.pickup.model.Pickup
-import com.isaacguru.domain.collectable.trinket.model.Trinket
-import com.isaacguru.domain.curse.model.Curse
-import com.isaacguru.domain.machine.model.Machine
-import com.isaacguru.domain.transformation.model.Transformation
+import com.isaacguru.domain.inventory.model.Character
+import com.isaacguru.domain.inventory.model.Curse
+import com.isaacguru.domain.inventory.model.Item
+import com.isaacguru.domain.inventory.model.Machine
+import com.isaacguru.domain.inventory.model.Pickup
+import com.isaacguru.domain.inventory.model.Transformation
+import com.isaacguru.domain.inventory.model.Trinket
 
 data class GameAspects(
     val items: List<Item>,

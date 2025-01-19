@@ -5,8 +5,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import co.touchlab.kermit.Logger
-import com.isaacguru.domain.collectable.item.model.Item
-import com.isaacguru.domain.collectable.item.usecase.GetItemUseCase
+import com.isaacguru.domain.inventory.model.InventoryItem
+import com.isaacguru.domain.inventory.model.Item
+import com.isaacguru.domain.inventory.usecase.GetItemUseCase
 import com.isaacguru.presentation.features.inventory.items.model.ViewItemWrapper
 import com.isaacguru.presentation.features.inventory.items.model.viewWrapperOf
 import com.isaacguru.presentation.navigation.Screen
@@ -66,7 +67,7 @@ class ItemDetailsViewModel(
 
 data class ItemDetailsViewState(
     val error: Throwable? = null,
-    val item: ViewItemWrapper<Item>? = null
+    val item: ViewItemWrapper<InventoryItem>? = null
 )
 
 sealed interface ItemDetailsIntent {

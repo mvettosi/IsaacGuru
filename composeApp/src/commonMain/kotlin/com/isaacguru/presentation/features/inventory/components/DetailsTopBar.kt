@@ -18,14 +18,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.isaacguru.domain.GameAspect
-import com.isaacguru.domain.collectable.item.model.Item
+import com.isaacguru.domain.inventory.model.InventoryItem
+import com.isaacguru.domain.inventory.model.Item
 import com.isaacguru.presentation.shared.ItemIdColor
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailsTopBar(
-    gameAspect: GameAspect? = null,
+    inventoryItem: InventoryItem? = null,
     onBackClick: (() -> Unit)? = null,
 ) {
   CenterAlignedTopAppBar(
@@ -40,14 +40,14 @@ fun DetailsTopBar(
         }
       },
       title = {
-        gameAspect?.let {
+        inventoryItem?.let {
           Box(
               modifier =
                   Modifier.background(
-                          color = gameAspect.getBadgeColour(), shape = RoundedCornerShape(4.dp))
+                          color = inventoryItem.getBadgeColour(), shape = RoundedCornerShape(4.dp))
                       .padding(vertical = 4.dp, horizontal = 10.dp)) {
             Text(
-                text = "#${gameAspect.id}",
+                text = "#${inventoryItem.id}",
                 style = MaterialTheme.typography.headlineSmall.copy(Color.White),
                 modifier = Modifier,
             )
@@ -57,7 +57,7 @@ fun DetailsTopBar(
   )
 }
 
-private fun GameAspect.getBadgeColour() =
+private fun InventoryItem.getBadgeColour() =
     when (this) {
       is Item -> ItemIdColor
       else -> Color.White

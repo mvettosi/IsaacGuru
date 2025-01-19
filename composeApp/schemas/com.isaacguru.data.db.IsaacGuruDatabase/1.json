@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8f1706fe5d04d5e7bc1396849be8b2c1",
+    "identityHash": "3ae2ea5dde654870778b9c6cc17b7ab4",
     "entities": [
       {
         "tableName": "InventoryItemEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `image` TEXT NOT NULL, `keywords` TEXT NOT NULL, `quote` TEXT, `unlockMethod` TEXT, `costume` TEXT NOT NULL, `itemPools` TEXT NOT NULL, `quality` INTEGER NOT NULL, `transformations` TEXT NOT NULL, `type` TEXT NOT NULL, `maxCharges` INTEGER, `chargeType` TEXT, `cooldown` INTEGER, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `id_raw` TEXT, `name` TEXT, `type` TEXT, `main_type` TEXT, `display_type` TEXT, `maxcharges` TEXT, `chargetype` TEXT, `cooldown` TEXT, `hidden` TEXT, `clean_name` TEXT, `description` TEXT, `quality` TEXT, `pools` TEXT, `tags` TEXT, `gfxfull` TEXT, `dontshow` TEXT, `costume` TEXT, `keywords` TEXT, `unlock_method` TEXT, `transformations` TEXT, `bot_description` TEXT, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -15,83 +15,109 @@
             "notNull": true
           },
           {
+            "fieldPath": "id_raw",
+            "columnName": "id_raw",
+            "affinity": "TEXT"
+          },
+          {
             "fieldPath": "name",
             "columnName": "name",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "description",
-            "columnName": "description",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "image",
-            "columnName": "image",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "keywords",
-            "columnName": "keywords",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "quote",
-            "columnName": "quote",
             "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "unlockMethod",
-            "columnName": "unlockMethod",
-            "affinity": "TEXT"
-          },
-          {
-            "fieldPath": "costume",
-            "columnName": "costume",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "itemPools",
-            "columnName": "itemPools",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "quality",
-            "columnName": "quality",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "transformations",
-            "columnName": "transformations",
-            "affinity": "TEXT",
-            "notNull": true
           },
           {
             "fieldPath": "type",
             "columnName": "type",
-            "affinity": "TEXT",
-            "notNull": true
+            "affinity": "TEXT"
           },
           {
-            "fieldPath": "maxCharges",
-            "columnName": "maxCharges",
-            "affinity": "INTEGER"
+            "fieldPath": "main_type",
+            "columnName": "main_type",
+            "affinity": "TEXT"
           },
           {
-            "fieldPath": "chargeType",
-            "columnName": "chargeType",
+            "fieldPath": "display_type",
+            "columnName": "display_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "maxcharges",
+            "columnName": "maxcharges",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "chargetype",
+            "columnName": "chargetype",
             "affinity": "TEXT"
           },
           {
             "fieldPath": "cooldown",
             "columnName": "cooldown",
-            "affinity": "INTEGER"
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hidden",
+            "columnName": "hidden",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "clean_name",
+            "columnName": "clean_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "quality",
+            "columnName": "quality",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pools",
+            "columnName": "pools",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "gfxfull",
+            "columnName": "gfxfull",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "dontshow",
+            "columnName": "dontshow",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "costume",
+            "columnName": "costume",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "keywords",
+            "columnName": "keywords",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "unlock_method",
+            "columnName": "unlock_method",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "transformations",
+            "columnName": "transformations",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bot_description",
+            "columnName": "bot_description",
+            "affinity": "TEXT"
           }
         ],
         "primaryKey": {
@@ -134,7 +160,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8f1706fe5d04d5e7bc1396849be8b2c1')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ae2ea5dde654870778b9c6cc17b7ab4')"
     ]
   }
 }

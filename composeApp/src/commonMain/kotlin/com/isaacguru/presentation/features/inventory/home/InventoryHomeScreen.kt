@@ -3,7 +3,7 @@ package com.isaacguru.presentation.features.inventory.home
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.isaacguru.presentation.features.inventory.components.InventoryScreen
-import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
+import com.isaacguru.presentation.features.inventory.components.model.ViewInventoryItem
 import com.isaacguru.presentation.navigation.Screen
 import isaacguru.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -15,37 +15,37 @@ fun InventoryHomeScreen(modifier: Modifier = Modifier, navigateToScreen: (Screen
       title = "Inventory",
       defaultToList = true,
       displayViewToggle = false,
-      inventoryItems =
+      viewInventoryItems =
           listOf(
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Items",
                   thumbnail = Res.getUri("files/collectibles_118_brimstone.png"),
                   destination = Screen.Inventory.Items),
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Trinkets",
                   thumbnail = Res.getUri("files/trinket_001_swallowedpenny.png"),
                   destination = Screen.Inventory.Trinkets),
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Pickups",
                   thumbnail = Res.getUri("files/Heart.webp"),
                   destination = Screen.Inventory.Pickups),
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Consumables",
                   thumbnail = Res.getUri("files/Item_Card.webp"),
                   destination = Screen.Inventory.Consumables),
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Machines",
                   thumbnail = Res.getUri("files/Slot_Machine.webp"),
                   destination = Screen.Inventory.Machines),
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Characters",
                   thumbnail = Res.getUri("files/Isaac.webp"),
                   destination = Screen.Inventory.Characters),
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Transformations",
                   thumbnail = Res.getUri("files/Guppy.webp"),
                   destination = Screen.Inventory.Transformations),
-              InventoryItem(
+              ViewInventoryItem(
                   name = "Curses",
                   thumbnail = Res.getUri("files/Curse of Darkness.webp"),
                   destination = Screen.Inventory.Curses),

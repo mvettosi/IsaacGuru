@@ -4,14 +4,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.isaacguru.presentation.features.inventory.components.InventoryScreen
-import com.isaacguru.presentation.features.inventory.components.model.InventoryItem
+import com.isaacguru.presentation.features.inventory.components.model.ViewInventoryItem
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun ItemsScreen(
     viewModel: ItemsViewModel = koinViewModel(),
     onBackClick: () -> Unit,
-    displayItemDetails: (InventoryItem) -> Unit
+    displayItemDetails: (ViewInventoryItem) -> Unit
 ) {
   val viewState by viewModel.state.collectAsStateWithLifecycle()
   InventoryScreen(
@@ -19,6 +19,6 @@ fun ItemsScreen(
       onBackClick = onBackClick,
       defaultToList = false,
       isLoading = viewState.isLoading,
-      inventoryItems = viewState.items,
+      viewInventoryItems = viewState.items,
       onInventoryItemClick = displayItemDetails)
 }

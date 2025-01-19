@@ -2,24 +2,29 @@ package com.isaacguru.data.inventory.local.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.isaacguru.domain.collectable.item.model.Item.Active.ChargeType
-import com.isaacguru.domain.collectable.item.model.ItemType
 
 @Entity
 data class InventoryItemEntity(
     @PrimaryKey(autoGenerate = false) val id: String,
-    val name: String,
-    val description: String,
-    val image: String,
-    val keywords: List<String>,
-    val quote: String? = null,
-    val unlockMethod: String? = null,
-    val costume: String,
-    val itemPools: List<String>,
-    val quality: Int,
-    val transformations: List<String>,
-    val type: ItemType,
-    val maxCharges: Int? = null,
-    val chargeType: ChargeType? = null,
-    val cooldown: Int? = null,
+    val id_raw: String? = null,
+    val name: String? = null,
+    val type: String? = null,
+    val main_type: String? = null,
+    val display_type: String? = null,
+    val maxcharges: String? = null,
+    val chargetype: String? = null,
+    val cooldown: String? = null,
+    val hidden: String? = null,
+    val clean_name: String? = null,
+    val description: String? = null,
+    val quality: String? = null,
+    val pools: String? = null,
+    val tags: String? = null,
+    val gfxfull: String? = null,
+    val dontshow: String? = null,
+    val costume: String? = null,
+    val keywords: String? = null,
+    val unlock_method: String? = null,
+    val transformations: String? = null,
+    val bot_description: String? = null,
 )

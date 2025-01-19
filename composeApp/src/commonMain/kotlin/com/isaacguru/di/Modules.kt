@@ -10,15 +10,15 @@ import com.isaacguru.data.inventory.remote.InventoryRemoteDataSource
 import com.isaacguru.data.itempool.ItemPoolRepositoryImpl
 import com.isaacguru.data.itempool.remote.ItemPoolRemoteDataSource
 import com.isaacguru.data.settings.DataStoreSettingsRepository
-import com.isaacguru.domain.collectable.item.repository.InventoryRepository
-import com.isaacguru.domain.collectable.item.usecase.GetItemUseCase
-import com.isaacguru.domain.collectable.item.usecase.GetItemsUseCase
 import com.isaacguru.domain.device.usecase.IsNetworkAvailableUseCase
 import com.isaacguru.domain.gamemod.repository.GameModRepository
 import com.isaacguru.domain.gamemod.usecase.GetGameModsUseCase
 import com.isaacguru.domain.gamemod.usecase.LoadDefaultInventoryUseCase
 import com.isaacguru.domain.gamemod.usecase.SetGameModUseCase
 import com.isaacguru.domain.gamemod.usecase.SetInventoryUseCase
+import com.isaacguru.domain.inventory.repository.InventoryRepository
+import com.isaacguru.domain.inventory.usecase.GetInventoryUseCase
+import com.isaacguru.domain.inventory.usecase.GetItemUseCase
 import com.isaacguru.domain.itempool.repository.ItemPoolRepository
 import com.isaacguru.domain.settings.repository.SettingsRepository
 import com.isaacguru.domain.settings.usecase.GetCurrentSettingsUseCase
@@ -64,7 +64,7 @@ val sharedModule = module {
   singleOf(::IsNetworkAvailableUseCase)
   singleOf(::GetCurrentSettingsUseCase)
   singleOf(::LoadDataUseCase)
-  singleOf(::GetItemsUseCase)
+  singleOf(::GetInventoryUseCase)
   singleOf(::GetItemUseCase)
 
   // View Models
