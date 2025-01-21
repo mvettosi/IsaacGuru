@@ -35,24 +35,24 @@ class InventoryViewModel(private val getInventoryUseCase: GetInventoryUseCase) :
 
   // View Intents
   fun onIntent(action: InventoryIntent) {
-    when (action) {
-      is InventoryIntent.OnLoadItems ->
-          _viewState.update { it.copy(itemFilters = action.itemFilters) }
-      is InventoryIntent.OnSectionClick -> toggleSection(action.title)
-      is InventoryIntent.OnItemClick -> TODO()
+    viewModelScope.launch {
+      when (action) {
+        is InventoryIntent.OnLoadItems ->
+            _viewState.update { it.copy(itemFilters = action.itemFilters) }
+        is InventoryIntent.OnSectionClick -> toggleSection(action.title)
+        is InventoryIntent.OnItemClick -> _action.send(InventoryAction.NavigateToDetail(action.id))
+      }
     }
   }
 
   private fun toggleSection(title: String) {
-    viewModelScope.launch {
-      _viewState.update {
-        it.copy(
-            sections =
-                it.sections.map { section ->
-                  if (section.title == title) section.copy(collapsed = !section.collapsed)
-                  else section
-                })
-      }
+    _viewState.update {
+      it.copy(
+          sections =
+              it.sections.map { section ->
+                if (section.title == title) section.copy(collapsed = !section.collapsed)
+                else section
+              })
     }
   }
 
