@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 val SeparatorColor = Color("#8c0008".toColorInt())
 
 // Item Details
+val BottomBarBackgroundColor = Color("#141414".toColorInt())
 val ItemDetailsBackgroundColor = Color(red = 51f, green = 51f, blue = 51f, alpha = 0.05f)
 val ItemIdColor = Color("#3f51b5".toColorInt())
 val QuoteColor = Color("#0089FF".toColorInt())

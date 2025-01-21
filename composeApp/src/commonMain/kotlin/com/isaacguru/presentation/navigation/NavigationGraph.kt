@@ -21,7 +21,7 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modif
     composable<Screen.InventoryDetail> {
       InventoryDetailsScreenRoot(onBackClick = navController::popBackStack)
     }
-    composable<Screen.Others> { OthersScreen() }
+    composable<Screen.More> { OthersScreen() }
     composable<Screen.Settings> { SettingsScreen() }
   }
 }

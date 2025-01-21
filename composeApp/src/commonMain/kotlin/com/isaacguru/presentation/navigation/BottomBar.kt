@@ -6,8 +6,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,12 +17,13 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil3.compose.rememberAsyncImagePainter
+import com.isaacguru.presentation.shared.BottomBarBackgroundColor
 import com.isaacguru.presentation.shared.SeparatorColor
 import isaacguru.composeapp.generated.resources.Res
 import org.jetbrains.compose.resources.ExperimentalResourceApi
@@ -41,9 +44,9 @@ fun BottomBar(navController: NavHostController) {
               sprite = Res.getUri("files/collectibles_021_thecompass.png"),
           ),
           BottomBarItem(
-              screen = Screen.Others,
-              title = "Search",
-              sprite = Res.getUri("files/collectibles_005_myreflection.png"),
+              screen = Screen.More,
+              title = "More",
+              sprite = Res.getUri("files/collectibles_362_lilchest.png"),
           ),
           BottomBarItem(
               screen = Screen.Settings,
@@ -55,7 +58,7 @@ fun BottomBar(navController: NavHostController) {
 
   Column {
     HorizontalDivider(color = SeparatorColor, thickness = 2.dp)
-    NavigationBar(containerColor = Color.Transparent) {
+    NavigationBar(containerColor = BottomBarBackgroundColor) {
       bottomBarItems.forEachIndexed { index, bottomBarItem ->
         val selected = index == selectedItemIndex
         NavigationBarItem(
@@ -65,11 +68,16 @@ fun BottomBar(navController: NavHostController) {
               navController.navigate(bottomBarItem.screen)
             },
             label = { Text(bottomBarItem.title) },
+            colors =
+                NavigationBarItemDefaults.colors(
+                    indicatorColor = MaterialTheme.colorScheme.surface,
+                ),
             icon = {
               Image(
                   painter = rememberAsyncImagePainter(bottomBarItem.sprite),
                   contentDescription = bottomBarItem.title,
-                  modifier = Modifier.requiredSize(50.dp),
+                  modifier = Modifier.requiredSize(70.dp),
+                  contentScale = ContentScale.FillHeight,
                   colorFilter =
                       if (selected) null
                       else ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) }))
