@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.features.inventory.items.detail
+package com.isaacguru.presentation.features.inventory.detail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -6,10 +6,9 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import co.touchlab.kermit.Logger
 import com.isaacguru.domain.inventory.model.InventoryItem
-import com.isaacguru.domain.inventory.model.Item
 import com.isaacguru.domain.inventory.usecase.GetItemUseCase
-import com.isaacguru.presentation.features.inventory.items.model.ViewItemWrapper
-import com.isaacguru.presentation.features.inventory.items.model.viewWrapperOf
+import com.isaacguru.presentation.features.inventory.detail.model.ViewItemWrapper
+import com.isaacguru.presentation.features.inventory.detail.model.viewWrapperOf
 import com.isaacguru.presentation.navigation.Screen
 import com.isaacguru.presentation.shared.stateWith
 import kotlinx.coroutines.channels.Channel
@@ -22,12 +21,12 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class ItemDetailsViewModel(
+class InventoryDetailsViewModel(
     savedStateHandle: SavedStateHandle,
     private val getItemUseCase: GetItemUseCase
 ) : ViewModel() {
   // Navigation Params
-  private val params = savedStateHandle.toRoute<Screen.Inventory.Detail.Item>()
+  private val params = savedStateHandle.toRoute<Screen.InventoryDetail>()
 
   // View State
   private val _viewState = MutableStateFlow(ItemDetailsViewState())

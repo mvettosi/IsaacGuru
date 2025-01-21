@@ -15,7 +15,7 @@ import com.isaacguru.presentation.navigation.BottomBar
 import com.isaacguru.presentation.navigation.NavigationGraph
 import com.isaacguru.presentation.shared.appColorScheme
 import isaacguru.composeapp.generated.resources.Res
-import isaacguru.composeapp.generated.resources.background_sheol
+import isaacguru.composeapp.generated.resources.background_cellar
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.viewmodel.koinViewModel
@@ -30,7 +30,7 @@ fun App(appViewModel: AppViewModel = koinViewModel()) {
     Box {
       Image(
           modifier = Modifier.fillMaxSize(),
-          painter = painterResource(Res.drawable.background_sheol),
+          painter = painterResource(Res.drawable.background_cellar),
           contentDescription = "background_image",
           contentScale = ContentScale.FillBounds)
       Scaffold(

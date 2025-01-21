@@ -36,12 +36,12 @@ fun BottomBar(navController: NavHostController) {
   val bottomBarItems =
       listOf(
           BottomBarItem(
-              screen = Screen.Inventory.Home,
+              screen = Screen.Inventory,
               title = "Inventory",
               sprite = Res.getUri("files/collectibles_021_thecompass.png"),
           ),
           BottomBarItem(
-              screen = Screen.Search,
+              screen = Screen.Others,
               title = "Search",
               sprite = Res.getUri("files/collectibles_005_myreflection.png"),
           ),

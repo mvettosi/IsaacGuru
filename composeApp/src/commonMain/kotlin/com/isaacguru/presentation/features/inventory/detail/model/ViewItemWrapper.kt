@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.features.inventory.items.model
+package com.isaacguru.presentation.features.inventory.detail.model
 
 import androidx.compose.ui.text.AnnotatedString
 import com.isaacguru.domain.inventory.model.InventoryItem

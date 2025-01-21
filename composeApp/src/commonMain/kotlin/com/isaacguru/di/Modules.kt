@@ -25,8 +25,8 @@ import com.isaacguru.domain.settings.usecase.GetCurrentSettingsUseCase
 import com.isaacguru.domain.settings.usecase.LoadDataUseCase
 import com.isaacguru.domain.settings.usecase.UpdateSettingsUseCase
 import com.isaacguru.presentation.AppViewModel
-import com.isaacguru.presentation.features.inventory.items.ItemsViewModel
-import com.isaacguru.presentation.features.inventory.items.detail.ItemDetailsViewModel
+import com.isaacguru.presentation.features.inventory.InventoryViewModel
+import com.isaacguru.presentation.features.inventory.detail.InventoryDetailsViewModel
 import kotlinx.serialization.json.Json
 import org.koin.core.module.Module
 import org.koin.core.module.dsl.singleOf
@@ -69,6 +69,6 @@ val sharedModule = module {
 
   // View Models
   viewModelOf(::AppViewModel)
-  viewModelOf(::ItemsViewModel)
-  viewModelOf(::ItemDetailsViewModel)
+  viewModelOf(::InventoryViewModel)
+  viewModelOf(::InventoryDetailsViewModel)
 }

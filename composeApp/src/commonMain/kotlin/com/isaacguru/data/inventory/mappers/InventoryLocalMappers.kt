@@ -31,7 +31,8 @@ fun InventoryItemEntity.toItem(): Item =
     when (display_type) {
       "Active item" ->
           Item.Active(
-              id = id_raw ?: "",
+              id = id,
+              rawId = id_raw ?: "",
               name = name ?: "",
               description = bot_description ?: "",
               image = gfxfull.toResourceUri(),
@@ -48,7 +49,8 @@ fun InventoryItemEntity.toItem(): Item =
           )
       else ->
           Item.Passive(
-              id = id_raw ?: "",
+              id = id,
+              rawId = id_raw ?: "",
               name = name ?: "",
               description = bot_description ?: "",
               image = gfxfull.toResourceUri(),
@@ -80,7 +82,8 @@ fun String?.toChargeType(): Item.Active.ChargeType =
 
 fun InventoryItemEntity.toTrinket(): Trinket =
     Trinket(
-        id = id_raw ?: "",
+        id = id,
+        rawId = id_raw ?: "",
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -91,7 +94,8 @@ fun InventoryItemEntity.toTrinket(): Trinket =
 
 fun InventoryItemEntity.toPickup(): Pickup =
     Pickup(
-        id = id_raw ?: "",
+        id = id,
+        rawId = id_raw ?: "",
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -101,7 +105,8 @@ fun InventoryItemEntity.toPickup(): Pickup =
 
 fun InventoryItemEntity.toConsumable(): Consumable =
     Consumable(
-        id = id_raw ?: "",
+        id = id,
+        rawId = id_raw ?: "",
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -113,7 +118,8 @@ fun InventoryItemEntity.toConsumable(): Consumable =
 
 fun InventoryItemEntity.toMachine(): Machine =
     Machine(
-        id = id_raw ?: "",
+        id = id,
+        rawId = id_raw ?: "",
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -122,7 +128,8 @@ fun InventoryItemEntity.toMachine(): Machine =
 
 fun InventoryItemEntity.toCharacter(): Character =
     Character(
-        id = id_raw ?: "",
+        id = id,
+        rawId = id_raw ?: "",
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -133,7 +140,8 @@ fun InventoryItemEntity.toCharacter(): Character =
 
 fun InventoryItemEntity.toTransformation(): Transformation =
     Transformation(
-        id = id_raw ?: "",
+        id = id,
+        rawId = id_raw ?: "",
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -143,7 +151,8 @@ fun InventoryItemEntity.toTransformation(): Transformation =
 
 fun InventoryItemEntity.toCurse(): Curse =
     Curse(
-        id = id_raw ?: "",
+        id = id,
+        rawId = id_raw ?: "",
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),

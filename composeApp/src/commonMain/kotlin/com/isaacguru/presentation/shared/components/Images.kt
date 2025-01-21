@@ -21,6 +21,7 @@ fun GameAspectImage(modifier: Modifier = Modifier, inventoryItem: InventoryItem)
 @Composable
 fun ResImage(
     modifier: Modifier = Modifier,
+    contentScale: ContentScale = ContentScale.FillHeight,
     resource: DrawableResource,
     contentDescription: String?
 ) {
@@ -28,6 +29,6 @@ fun ResImage(
       bitmap = imageResource(resource),
       contentDescription = contentDescription,
       modifier = modifier,
-      contentScale = ContentScale.FillHeight,
+      contentScale = contentScale,
       filterQuality = FilterQuality.None)
 }

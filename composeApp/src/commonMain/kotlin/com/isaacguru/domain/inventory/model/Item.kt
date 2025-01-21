@@ -8,6 +8,7 @@ sealed class Item : Collectible() {
 
   data class Active(
       override val id: String,
+      override val rawId: String,
       override val name: String,
       override val description: String,
       override val image: String,
@@ -31,6 +32,7 @@ sealed class Item : Collectible() {
 
   data class Passive(
       override val id: String,
+      override val rawId: String,
       override val name: String,
       override val description: String,
       override val image: String,

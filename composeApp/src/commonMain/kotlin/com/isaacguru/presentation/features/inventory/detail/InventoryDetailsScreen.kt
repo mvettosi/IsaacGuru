@@ -1,4 +1,4 @@
-package com.isaacguru.presentation.features.inventory.items.detail
+package com.isaacguru.presentation.features.inventory.detail
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,8 +36,8 @@ import isaacguru.composeapp.generated.resources.star_full
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun ItemDetailsScreenRoot(
-    viewModel: ItemDetailsViewModel = koinViewModel(),
+fun InventoryDetailsScreenRoot(
+    viewModel: InventoryDetailsViewModel = koinViewModel(),
     onBackClick: () -> Unit
 ) {
   val viewState by viewModel.viewState.collectAsStateWithLifecycle()
@@ -48,11 +48,11 @@ fun ItemDetailsScreenRoot(
     }
   }
 
-  ItemDetailsScreen(viewState = viewState, intent = viewModel::onIntent)
+  InventoryDetailsScreen(viewState = viewState, intent = viewModel::onIntent)
 }
 
 @Composable
-fun ItemDetailsScreen(
+fun InventoryDetailsScreen(
     viewState: ItemDetailsViewState,
     intent: (ItemDetailsIntent) -> Unit,
 ) {

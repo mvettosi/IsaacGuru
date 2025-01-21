@@ -16,6 +16,6 @@ interface InventoryLocalDataSource {
 
   @Query("SELECT * FROM InventoryItemEntity") fun getAllItems(): List<InventoryItemEntity>
 
-  @Query("SELECT * FROM InventoryItemEntity WHERE id_raw = :id")
+  @Query("SELECT * FROM InventoryItemEntity WHERE id = :id")
   fun getItem(id: String): Flow<InventoryItemEntity?>
 }

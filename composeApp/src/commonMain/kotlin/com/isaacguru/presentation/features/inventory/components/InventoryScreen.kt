@@ -28,7 +28,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.rememberAsyncImagePainter
-import com.isaacguru.presentation.features.inventory.components.model.ViewInventoryItem
+import com.isaacguru.presentation.features.inventory.model.ViewInventoryItem
 import com.isaacguru.presentation.shared.components.LoadingContent
 
 @Composable
