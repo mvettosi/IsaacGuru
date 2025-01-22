@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -58,7 +60,10 @@ fun InventoryDetailsScreen(
 ) {
   Surface(color = ItemDetailsBackgroundColor, contentColor = MaterialTheme.colorScheme.onSurface) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
+        modifier =
+            Modifier.fillMaxSize()
+                .padding(horizontal = 10.dp)
+                .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally) {
       if (viewState.error != null) {
         Text(text = viewState.error.message ?: "Unknown error")
