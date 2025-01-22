@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
@@ -68,18 +69,33 @@ fun InventoryScreen(
         header { InventorySectionHeader(section = section, intent = intent) }
         if (!section.collapsed) {
           items(items = section.items, key = { it.id }) { item ->
-            //          AnimatedVisibility(
-            //              visible = !section.collapsed,
-            //              enter = expandVertically(expandFrom = Alignment.Top),
-            //              exit = shrinkVertically(shrinkTowards = Alignment.Top)) {
-            //            InventorySectionItem(item = item, intent = intent)
-            //          }
-
             InventorySectionItem(item = item, intent = intent)
           }
         }
       }
     }
+    //    Column(
+    //      modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp).verticalScroll(state =
+    // rememberScrollState()),
+    //      verticalArrangement = Arrangement.spacedBy(20.dp),
+    //    ) {
+    //      viewState.sections.forEach { section ->
+    //        InventorySectionHeader(section = section, intent = intent)
+    //        AnimatedVisibility(
+    //          visible = !section.collapsed,
+    //          enter = expandVertically(expandFrom = Alignment.Top),
+    //          exit = shrinkVertically(shrinkTowards = Alignment.Top)) {
+    //          LazyVerticalGrid(
+    //            modifier = Modifier.heightIn(max = 20000.dp),
+    //            columns = GridCells.Fixed(5),
+    //          ) {
+    //            items(items = section.items) { item ->
+    //              InventorySectionItem(item = item, intent = intent)
+    //            }
+    //          }
+    //        }
+    //      }
+    //    }
   }
 }
 
@@ -89,22 +105,27 @@ fun InventorySectionHeader(section: ViewInventorySection, intent: (InventoryInte
       contentAlignment = Alignment.Center,
       modifier = Modifier.clickable { intent(InventoryIntent.OnSectionClick(section.title)) }) {
     ResImage(
-        modifier = Modifier.requiredHeight(60.dp),
-        contentScale = ContentScale.FillHeight,
+        modifier = Modifier.fillMaxWidth().requiredHeight(70.dp),
+        contentScale = ContentScale.FillBounds,
         resource = Res.drawable.effect_streak,
         contentDescription = "Effect Streak")
     BrandText(
         text = section.fullTitle,
-        style = MaterialTheme.typography.displaySmall,
+        style = MaterialTheme.typography.headlineMedium,
         modifier = Modifier.offset(y = (-8).dp))
   }
 }
 
 @Composable
-fun InventorySectionItem(item: ViewInventoryItem, intent: (InventoryIntent) -> Unit) {
+fun InventorySectionItem(
+    item: ViewInventoryItem,
+    modifier: Modifier = Modifier,
+    intent: (InventoryIntent) -> Unit
+) {
   Box(
       modifier =
-          Modifier.clickable { intent(InventoryIntent.OnItemClick(item.id)) }
+          modifier
+              .clickable { intent(InventoryIntent.OnItemClick(item.id)) }
               .aspectRatio(1f)
               .padding(8.dp),
       contentAlignment = Alignment.Center,
