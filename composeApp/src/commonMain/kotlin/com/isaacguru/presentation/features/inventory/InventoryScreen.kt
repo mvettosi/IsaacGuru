@@ -2,22 +2,34 @@ package com.isaacguru.presentation.features.inventory
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -30,6 +42,9 @@ import coil3.compose.rememberAsyncImagePainter
 import com.isaacguru.presentation.features.inventory.model.ViewInventoryItem
 import com.isaacguru.presentation.features.inventory.model.ViewInventorySection
 import com.isaacguru.presentation.shared.ObserveEvents
+import com.isaacguru.presentation.shared.TopBarBackgroundColor
+import com.isaacguru.presentation.shared.TopBarFocusedBackgroundColor
+import com.isaacguru.presentation.shared.TopBarSearchBackgroundColor
 import com.isaacguru.presentation.shared.components.BrandText
 import com.isaacguru.presentation.shared.components.ResImage
 import isaacguru.composeapp.generated.resources.Res
@@ -39,63 +54,63 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun InventoryScreenRoot(
     viewModel: InventoryViewModel = koinViewModel(),
-    onBackClick: () -> Unit,
     onNavigateToDetail: (id: String) -> Unit
 ) {
   val viewState by viewModel.viewState.collectAsStateWithLifecycle()
 
   ObserveEvents(viewModel.action) {
     when (it) {
-      InventoryAction.NavigateBack -> onBackClick()
       is InventoryAction.NavigateToDetail -> onNavigateToDetail(it.id)
     }
   }
 
-  InventoryScreen(viewState = viewState, intent = viewModel::onIntent)
+  InventoryScreen(viewState = viewState, intent = viewModel::intent)
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun InventoryScreen(
     viewState: InventoryViewState,
     intent: (InventoryIntent) -> Unit,
 ) {
   Surface(contentColor = MaterialTheme.colorScheme.onSurface, color = Color.Transparent) {
-    LazyVerticalGrid(
-        modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
-        verticalArrangement = Arrangement.spacedBy(20.dp),
-        columns = GridCells.Fixed(5),
-    ) {
-      viewState.sections.forEach { section ->
-        header { InventorySectionHeader(section = section, intent = intent) }
-        if (!section.collapsed) {
-          items(items = section.items, key = { it.id }) { item ->
-            InventorySectionItem(item = item, intent = intent)
+    Column {
+      TopAppBar(
+          windowInsets = WindowInsets(0.dp),
+          colors = TopAppBarDefaults.topAppBarColors().copy(containerColor = TopBarBackgroundColor),
+          modifier = Modifier.wrapContentHeight(),
+          title = {
+            Box(modifier = Modifier.padding(5.dp)) {
+              OutlinedTextField(
+                  value = viewState.itemFilters.query,
+                  onValueChange = { intent(InventoryIntent.OnQueryUpdated(it)) },
+                  modifier = Modifier.fillMaxWidth(),
+                  placeholder = { Text(text = "Search items") },
+                  colors =
+                      TextFieldDefaults.colors(
+                          unfocusedContainerColor = TopBarSearchBackgroundColor,
+                          unfocusedIndicatorColor = TopBarSearchBackgroundColor,
+                          focusedContainerColor = TopBarFocusedBackgroundColor,
+                          focusedIndicatorColor = TopBarFocusedBackgroundColor))
+            }
+          },
+          actions = {
+            IconButton(onClick = { /* doSomething() */}) {
+              Icon(imageVector = Icons.Filled.Edit, contentDescription = "Filter")
+            }
+          })
+      LazyVerticalGrid(
+          modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp),
+          columns = GridCells.Fixed(5),
+      ) {
+        viewState.sections.forEach { section ->
+          header { InventorySectionHeader(section = section, intent = intent) }
+          items(items = section.displayedItems ?: emptyList(), key = { it.id }) { item ->
+            InventorySectionItem(item = item, intent = intent, modifier = Modifier.animateItem())
           }
         }
       }
     }
-    //    Column(
-    //      modifier = Modifier.fillMaxSize().padding(horizontal = 10.dp).verticalScroll(state =
-    // rememberScrollState()),
-    //      verticalArrangement = Arrangement.spacedBy(20.dp),
-    //    ) {
-    //      viewState.sections.forEach { section ->
-    //        InventorySectionHeader(section = section, intent = intent)
-    //        AnimatedVisibility(
-    //          visible = !section.collapsed,
-    //          enter = expandVertically(expandFrom = Alignment.Top),
-    //          exit = shrinkVertically(shrinkTowards = Alignment.Top)) {
-    //          LazyVerticalGrid(
-    //            modifier = Modifier.heightIn(max = 20000.dp),
-    //            columns = GridCells.Fixed(5),
-    //          ) {
-    //            items(items = section.items) { item ->
-    //              InventorySectionItem(item = item, intent = intent)
-    //            }
-    //          }
-    //        }
-    //      }
-    //    }
   }
 }
 

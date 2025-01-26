@@ -5,9 +5,11 @@ import com.isaacguru.domain.inventory.model.Item
 import com.isaacguru.presentation.features.inventory.model.ViewInventoryItem
 import com.isaacguru.presentation.features.inventory.model.ViewInventorySection
 
-fun List<InventoryItem>.toViewSection(): List<ViewInventorySection> =
+fun List<InventoryItem>.toViewSection(noFiltering: Boolean): List<ViewInventorySection> =
     groupBy { item -> item.toSectionTitle() }.map { entry ->
-      ViewInventorySection(title = entry.key, items = entry.value.map { it.toViewItem() })
+      val items = entry.value.map { it.toViewItem() }
+      ViewInventorySection(
+          title = entry.key, items = items, displayedItems = if (noFiltering) null else items)
     }
 
 fun InventoryItem.toViewItem() =

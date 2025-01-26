@@ -15,7 +15,6 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modif
   NavHost(navController = navController, startDestination = Screen.Inventory, modifier = modifier) {
     composable<Screen.Inventory> {
       InventoryScreenRoot(
-          onBackClick = navController::popBackStack,
           onNavigateToDetail = { id -> navController.navigate(Screen.InventoryDetail(id)) })
     }
     composable<Screen.InventoryDetail> {
