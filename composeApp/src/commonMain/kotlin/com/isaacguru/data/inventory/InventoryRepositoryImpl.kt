@@ -5,7 +5,6 @@ import com.isaacguru.data.inventory.mappers.toDomain
 import com.isaacguru.data.inventory.mappers.toLocal
 import com.isaacguru.data.inventory.remote.InventoryRemoteDataSource
 import com.isaacguru.domain.inventory.model.InventoryItem
-import com.isaacguru.domain.inventory.model.ItemFilters
 import com.isaacguru.domain.inventory.repository.InventoryRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -28,7 +27,7 @@ class InventoryRepositoryImpl(
           }
           .mapNotNull { it?.toDomain() }
 
-  override suspend fun getItems(itemFilters: ItemFilters): List<InventoryItem> {
+  override suspend fun getItems(query: String?): List<InventoryItem> {
     if (inventoryLocalDataSource.isEmpty()) initialiseInventory()
     return inventoryLocalDataSource.getAllItems().mapNotNull { it.toDomain() }
   }
