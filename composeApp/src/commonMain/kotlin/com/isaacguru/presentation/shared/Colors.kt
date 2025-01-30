@@ -15,6 +15,17 @@ val ItemDetailsBackgroundColor = Color(red = 51f, green = 51f, blue = 51f, alpha
 val ItemIdColor = Color("#3f51b5".toColorInt())
 val QuoteColor = Color("#0089FF".toColorInt())
 val Divider = Color("#b6b4b4".toColorInt())
+val AppRed = Color(red = 220, green = 53, blue = 69)
+
+object FilterOptionColor {
+  val Default = Color(red = 108, green = 117, blue = 125)
+  val Green = Color(red = 25, green = 135, blue = 84)
+  val Yellow = Color(red = 255, green = 193, blue = 7)
+  val Cyan = Color(red = 13, green = 202, blue = 240)
+  val Blue = Color(red = 13, green = 110, blue = 253)
+  val Red = Color(red = 220, green = 53, blue = 69)
+  val White = Color(red = 248, green = 249, blue = 250)
+}
 
 // Color Scheme
 val primaryDark = Color(0xFFD3BCFD)

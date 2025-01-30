@@ -18,4 +18,9 @@ fun <T : InventoryItem> viewWrapperOf(item: T) =
         raw = item,
         richPools = (item as? Item)?.itemPools?.fromPools(),
         richDescription = item.description.fromDiscordString(),
-        subtitle = if (item is Item.Active) "Active Item" else "Passive Item")
+        subtitle =
+            when (item) {
+              is Item.Active -> "Active Item"
+              is Item.Passive -> "Passive Item"
+              else -> null
+            })

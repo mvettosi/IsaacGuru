@@ -5,11 +5,11 @@ import com.isaacguru.domain.inventory.model.Item
 import com.isaacguru.presentation.features.inventory.model.ViewInventoryItem
 import com.isaacguru.presentation.features.inventory.model.ViewInventorySection
 
-fun List<InventoryItem>.toViewSection(noFiltering: Boolean): List<ViewInventorySection> =
+fun List<InventoryItem>.toViewSection(collapsed: Boolean): List<ViewInventorySection> =
     groupBy { item -> item.toSectionTitle() }.map { entry ->
       val items = entry.value.map { it.toViewItem() }
       ViewInventorySection(
-          title = entry.key, items = items, displayedItems = if (noFiltering) null else items)
+          title = entry.key, items = items, displayedItems = if (collapsed) null else items)
     }
 
 fun InventoryItem.toViewItem() =

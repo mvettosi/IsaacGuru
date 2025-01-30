@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "3ae2ea5dde654870778b9c6cc17b7ab4",
+    "identityHash": "9c05c014816fcca1e18c85f276a8fdd2",
     "entities": [
       {
         "tableName": "InventoryItemEntity",
@@ -129,7 +129,7 @@
       },
       {
         "tableName": "ItemPoolEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `emoji` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "id",
@@ -148,6 +148,12 @@
             "columnName": "description",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "emoji",
+            "columnName": "emoji",
+            "affinity": "TEXT",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -160,7 +166,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ae2ea5dde654870778b9c6cc17b7ab4')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '9c05c014816fcca1e18c85f276a8fdd2')"
     ]
   }
 }

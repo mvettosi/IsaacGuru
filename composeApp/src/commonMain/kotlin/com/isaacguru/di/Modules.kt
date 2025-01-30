@@ -18,6 +18,7 @@ import com.isaacguru.domain.gamemod.usecase.SetGameModUseCase
 import com.isaacguru.domain.gamemod.usecase.SetInventoryUseCase
 import com.isaacguru.domain.inventory.repository.InventoryRepository
 import com.isaacguru.domain.inventory.usecase.GetInventoryUseCase
+import com.isaacguru.domain.inventory.usecase.GetItemPoolsUseCase
 import com.isaacguru.domain.inventory.usecase.GetItemUseCase
 import com.isaacguru.domain.itempool.repository.ItemPoolRepository
 import com.isaacguru.domain.settings.repository.SettingsRepository
@@ -66,6 +67,7 @@ val sharedModule = module {
   singleOf(::LoadDataUseCase)
   singleOf(::GetInventoryUseCase)
   singleOf(::GetItemUseCase)
+  singleOf(::GetItemPoolsUseCase)
 
   // View Models
   viewModelOf(::AppViewModel)
