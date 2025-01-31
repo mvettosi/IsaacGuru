@@ -11,11 +11,9 @@ class LoadDefaultInventoryUseCase(
     private val inventoryRepository: InventoryRepository,
     private val getCurrentSettingsUseCase: GetCurrentSettingsUseCase,
     private val updateSettingsUseCase: UpdateSettingsUseCase,
-    private val setInventoryUseCase: SetInventoryUseCase
 ) {
   suspend operator fun invoke() = runCatching {
-    //    val inventory = inventoryRepository.ge().first()
-    //    setInventoryUseCase(inventory).getOrThrow()
+    inventoryRepository.initialiseInventory()
 
     val currentSettings = getCurrentSettingsUseCase().getOrThrow().first()
     updateSettingsUseCase(currentSettings.copy(mod = gameModRepository.getDefaultGameMod()))

@@ -20,6 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -134,22 +135,21 @@ class InventoryViewModel(
     }
   }
 
-  private fun filterItems(itemFilters: ItemFilters): Job =
-      viewModelScope.launch(Dispatchers.IO) {
-        _viewState.update { it.copy(isLoading = true) }
-        getInventoryUseCase(itemFilters)
-            .onSuccess { items ->
-              _viewState.update {
-                it.copy(
-                    sections = items.toViewSection(!it.displayedIntoAnimation), isLoading = false)
-              }
-              if (!viewState.value.displayedIntoAnimation) triggerIntroAnimation()
-            }
-            .onFailure {
-              Logger.e { "Error getting items: $it" }
-              _viewState.update { it.copy(sections = emptyList(), isLoading = false) }
-            }
-      }
+  private fun filterItems(itemFilters: ItemFilters): Job {
+    _viewState.update { it.copy(isLoading = true) }
+    return getInventoryUseCase(itemFilters)
+        .onEach { items ->
+          _viewState.update {
+            it.copy(sections = items.toViewSection(!it.displayedIntoAnimation), isLoading = false)
+          }
+          if (!viewState.value.displayedIntoAnimation) triggerIntroAnimation()
+        }
+        .catch {
+          Logger.e(it) { "Error getting items: $it" }
+          _viewState.update { state -> state.copy(sections = emptyList(), isLoading = false) }
+        }
+        .launchIn(viewModelScope)
+  }
 
   private fun triggerIntroAnimation() {
     viewModelScope.launch {

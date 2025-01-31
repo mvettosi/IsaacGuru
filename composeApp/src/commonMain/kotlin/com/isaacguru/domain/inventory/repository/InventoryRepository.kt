@@ -5,5 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface InventoryRepository {
   fun getItem(itemId: String): Flow<InventoryItem>
-  suspend fun getItems(query: String? = null): List<InventoryItem>
+  fun getItems(query: String? = null): Flow<List<InventoryItem>>
+  suspend fun initialiseInventory()
 }

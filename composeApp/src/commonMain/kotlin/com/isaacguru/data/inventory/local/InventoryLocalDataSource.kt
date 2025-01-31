@@ -14,7 +14,7 @@ interface InventoryLocalDataSource {
 
   @Insert suspend fun insertItems(items: List<InventoryItemEntity>)
 
-  @Query("SELECT * FROM InventoryItemEntity") fun getAllItems(): List<InventoryItemEntity>
+  @Query("SELECT * FROM InventoryItemEntity") fun getAllItems(): Flow<List<InventoryItemEntity>>
 
   @Query("SELECT * FROM InventoryItemEntity WHERE id = :id")
   fun getItem(id: String): Flow<InventoryItemEntity?>

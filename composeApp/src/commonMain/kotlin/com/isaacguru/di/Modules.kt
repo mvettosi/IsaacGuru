@@ -15,7 +15,6 @@ import com.isaacguru.domain.gamemod.repository.GameModRepository
 import com.isaacguru.domain.gamemod.usecase.GetGameModsUseCase
 import com.isaacguru.domain.gamemod.usecase.LoadDefaultInventoryUseCase
 import com.isaacguru.domain.gamemod.usecase.SetGameModUseCase
-import com.isaacguru.domain.gamemod.usecase.SetInventoryUseCase
 import com.isaacguru.domain.inventory.repository.InventoryRepository
 import com.isaacguru.domain.inventory.usecase.GetInventoryUseCase
 import com.isaacguru.domain.inventory.usecase.GetItemPoolsUseCase
@@ -56,7 +55,6 @@ val sharedModule = module {
   singleOf(::GameModRepositoryImpl).bind<GameModRepository>()
 
   // Use Cases
-  singleOf(::SetInventoryUseCase)
   singleOf(::UpdateSettingsUseCase)
   singleOf(::GetCurrentSettingsUseCase)
   singleOf(::LoadDefaultInventoryUseCase)
