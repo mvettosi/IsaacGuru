@@ -112,7 +112,7 @@ fun InventoryScreen(
           title = {
             Box(modifier = Modifier.padding(5.dp)) {
               OutlinedTextField(
-                  value = viewState.query,
+                  value = viewState.filteringOptions.query,
                   onValueChange = { intent(InventoryIntent.OnQueryUpdated(it)) },
                   modifier = Modifier.fillMaxWidth(),
                   placeholder = { Text(text = "Search items") },
@@ -222,7 +222,7 @@ fun FilterOverlay(
 
       FilterGroup(
           title = "Item Pools",
-          options = viewState.filterSections[FilterSection.ITEM_POOLS] ?: emptyList(),
+          options = viewState.filteringOptions.filterSections[FilterSection.ITEM_POOLS] ?: emptyList(),
           onOptionSelected = {
             intent(
                 InventoryIntent.OnFilterSelected(
@@ -259,21 +259,5 @@ fun FilterGroup(
         }
       }
     }
-  }
-}
-
-@Composable
-fun SwitchableButton(
-    color: Color,
-    isSelected: Boolean,
-    onClick: () -> Unit,
-    content: @Composable () -> Unit
-) {
-  val colors = ButtonDefaults.buttonColors()
-
-  if (isSelected) {
-    Button(onClick = onClick) { content() }
-  } else {
-    OutlinedButton(onClick = onClick) { content() }
   }
 }

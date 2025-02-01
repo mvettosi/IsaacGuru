@@ -10,9 +10,8 @@ import com.isaacguru.presentation.features.inventory.mappers.toFilterOption
 import com.isaacguru.presentation.features.inventory.mappers.toItemFilters
 import com.isaacguru.presentation.features.inventory.mappers.toViewSection
 import com.isaacguru.presentation.features.inventory.model.FilterSection
-import com.isaacguru.presentation.features.inventory.model.FilterSections
+import com.isaacguru.presentation.features.inventory.model.FilteringOptions
 import com.isaacguru.presentation.features.inventory.model.ViewInventorySection
-import com.isaacguru.presentation.features.inventory.model.defaultFilterSections
 import com.isaacguru.presentation.shared.stateWith
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -72,30 +71,30 @@ class InventoryViewModel(
   private fun clearFilters() {
     _viewState.update {
       it.copy(
-          filterSections =
-              it.filterSections
-                  .map { entry ->
-                    entry.key to entry.value.map { option -> option.copy(selected = false) }
-                  }
-                  .toMap())
+          filteringOptions = it.filteringOptions.copy(filterSections =
+          it.filteringOptions.filterSections
+            .map { entry ->
+              entry.key to entry.value.map { option -> option.copy(selected = false) }
+            }
+            .toMap()))
     }
   }
 
   private fun updateFilterSelection(intent: InventoryIntent.OnFilterSelected) {
     _viewState.update {
-      val mutableFilters = it.filterSections.toMutableMap()
+      val mutableFilters = it.filteringOptions.filterSections.toMutableMap()
       val options = mutableFilters[intent.filterSection] ?: emptyList()
       val updatedOptions =
           options.map { option ->
             if (option.id == intent.id) option.copy(selected = !option.selected) else option
           }
       mutableFilters[intent.filterSection] = updatedOptions
-      it.copy(filterSections = mutableFilters.toMap())
+      it.copy(filteringOptions = it.filteringOptions.copy(filterSections = mutableFilters.toMap()))
     }
   }
 
   private fun updateQuery(newQuery: String) {
-    _viewState.update { it.copy(query = newQuery) }
+    _viewState.update { it.copy(filteringOptions = it.filteringOptions.copy(query = newQuery)) }
   }
 
   private fun toggleSection(title: String) {
@@ -112,11 +111,11 @@ class InventoryViewModel(
 
   private fun observeItemLoading() {
     viewState
-        .map { it.filterSections }
+        .map { it.filteringOptions }
         .distinctUntilChanged()
-        .onEach { filterSections ->
+        .onEach { filteringOptions ->
           filterJob?.cancel()
-          filterJob = filterItems(itemFilters = filterSections.toItemFilters(viewState.value.query))
+          filterJob = filterItems(itemFilters = filteringOptions.toItemFilters())
         }
         .launchIn(viewModelScope)
   }
@@ -126,9 +125,9 @@ class InventoryViewModel(
       getItemPoolsUseCase()
           .onSuccess { itemPools ->
             _viewState.update { state ->
-              val mutableFilters = state.filterSections.toMutableMap()
+              val mutableFilters = state.filteringOptions.filterSections.toMutableMap()
               mutableFilters[FilterSection.ITEM_POOLS] = itemPools.map { it.toFilterOption() }
-              state.copy(filterSections = mutableFilters.toMap())
+              state.copy(filteringOptions = state.filteringOptions.copy(filterSections = mutableFilters.toMap()))
             }
           }
           .onFailure { Logger.e { "Error fetching item pools: $it" } }
@@ -169,10 +168,9 @@ class InventoryViewModel(
 data class InventoryViewState(
     val displayedIntoAnimation: Boolean = false,
     val sections: List<ViewInventorySection> = emptyList(),
-    val query: String = "",
     val isLoading: Boolean = true,
     val displayFilterDialog: Boolean = false,
-    val filterSections: FilterSections = defaultFilterSections,
+    val filteringOptions: FilteringOptions = FilteringOptions()
 )
 
 sealed interface InventoryIntent {

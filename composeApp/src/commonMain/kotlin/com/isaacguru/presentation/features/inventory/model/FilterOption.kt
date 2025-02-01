@@ -75,3 +75,8 @@ val defaultFilterSections: FilterSections =
         FilterSection.GRANTS_COSTUME to yesNoOptions,
         FilterSection.HAS_YOUTUBE_VIDEO to yesNoOptions,
         FilterSection.ANIMATED_ICON to yesNoOptions)
+
+data class FilteringOptions(
+  val query: String = "",
+  val filterSections: FilterSections = defaultFilterSections
+)
