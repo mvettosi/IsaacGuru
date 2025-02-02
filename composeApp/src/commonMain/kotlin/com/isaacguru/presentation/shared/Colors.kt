@@ -16,6 +16,7 @@ val ItemIdColor = Color("#3f51b5".toColorInt())
 val QuoteColor = Color("#0089FF".toColorInt())
 val Divider = Color("#b6b4b4".toColorInt())
 val AppRed = Color(red = 220, green = 53, blue = 69)
+val ClearSearchRed = Color(red = 140, green = 0, blue = 8)
 
 object FilterOptionColor {
   val Default = Color(red = 108, green = 117, blue = 125)

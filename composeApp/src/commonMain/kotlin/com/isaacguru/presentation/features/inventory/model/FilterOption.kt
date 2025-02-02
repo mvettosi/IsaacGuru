@@ -77,6 +77,6 @@ val defaultFilterSections: FilterSections =
         FilterSection.ANIMATED_ICON to yesNoOptions)
 
 data class FilteringOptions(
-  val query: String = "",
-  val filterSections: FilterSections = defaultFilterSections
+    val query: String = "",
+    val filterSections: FilterSections = defaultFilterSections
 )

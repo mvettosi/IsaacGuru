@@ -1,6 +1,7 @@
 package com.isaacguru.data.inventory.local.model
 
 import androidx.room.Entity
+import androidx.room.Fts4
 import androidx.room.PrimaryKey
 
 @Entity
@@ -26,5 +27,14 @@ data class InventoryItemEntity(
     val keywords: String? = null,
     val unlock_method: String? = null,
     val transformations: String? = null,
+    val bot_description: String? = null,
+)
+
+@Fts4(contentEntity = InventoryItemEntity::class)
+@Entity
+data class InventoryItemFtsEntity(
+    @PrimaryKey val rowid: Int,
+    val name: String? = null,
+    val description: String? = null,
     val bot_description: String? = null,
 )

@@ -14,12 +14,14 @@ import com.isaacguru.presentation.features.inventory.model.FilteringOptions
 import com.isaacguru.presentation.features.inventory.model.ViewInventorySection
 import com.isaacguru.presentation.shared.stateWith
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
@@ -71,12 +73,15 @@ class InventoryViewModel(
   private fun clearFilters() {
     _viewState.update {
       it.copy(
-          filteringOptions = it.filteringOptions.copy(filterSections =
-          it.filteringOptions.filterSections
-            .map { entry ->
-              entry.key to entry.value.map { option -> option.copy(selected = false) }
-            }
-            .toMap()))
+          filteringOptions =
+              it.filteringOptions.copy(
+                  filterSections =
+                      it.filteringOptions
+                          .filterSections
+                          .map { entry ->
+                            entry.key to entry.value.map { option -> option.copy(selected = false) }
+                          }
+                          .toMap()))
     }
   }
 
@@ -109,17 +114,6 @@ class InventoryViewModel(
     }
   }
 
-  private fun observeItemLoading() {
-    viewState
-        .map { it.filteringOptions }
-        .distinctUntilChanged()
-        .onEach { filteringOptions ->
-          filterJob?.cancel()
-          filterJob = filterItems(itemFilters = filteringOptions.toItemFilters())
-        }
-        .launchIn(viewModelScope)
-  }
-
   private suspend fun fetchItemPools() {
     withContext(Dispatchers.IO) {
       getItemPoolsUseCase()
@@ -127,11 +121,26 @@ class InventoryViewModel(
             _viewState.update { state ->
               val mutableFilters = state.filteringOptions.filterSections.toMutableMap()
               mutableFilters[FilterSection.ITEM_POOLS] = itemPools.map { it.toFilterOption() }
-              state.copy(filteringOptions = state.filteringOptions.copy(filterSections = mutableFilters.toMap()))
+              state.copy(
+                  filteringOptions =
+                      state.filteringOptions.copy(filterSections = mutableFilters.toMap()))
             }
           }
           .onFailure { Logger.e { "Error fetching item pools: $it" } }
     }
+  }
+
+  @OptIn(FlowPreview::class)
+  private fun observeItemLoading() {
+    viewState
+        .map { it.filteringOptions }
+        .distinctUntilChanged()
+        .debounce(500L)
+        .onEach { filteringOptions ->
+          filterJob?.cancel()
+          filterJob = filterItems(itemFilters = filteringOptions.toItemFilters())
+        }
+        .launchIn(viewModelScope)
   }
 
   private fun filterItems(itemFilters: ItemFilters): Job {

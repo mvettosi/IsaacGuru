@@ -7,10 +7,13 @@ import androidx.room.TypeConverters
 import com.isaacguru.data.db.converters.StringListTypeConverter
 import com.isaacguru.data.inventory.local.InventoryLocalDataSource
 import com.isaacguru.data.inventory.local.model.InventoryItemEntity
+import com.isaacguru.data.inventory.local.model.InventoryItemFtsEntity
 import com.isaacguru.data.itempool.local.ItemPoolDataSource
 import com.isaacguru.data.itempool.local.model.ItemPoolEntity
 
-@Database(entities = [InventoryItemEntity::class, ItemPoolEntity::class], version = 1)
+@Database(
+    entities = [InventoryItemEntity::class, InventoryItemFtsEntity::class, ItemPoolEntity::class],
+    version = 2)
 @TypeConverters(StringListTypeConverter::class)
 @ConstructedBy(IsaacGuruDatabaseConstructor::class)
 abstract class IsaacGuruDatabase : RoomDatabase() {

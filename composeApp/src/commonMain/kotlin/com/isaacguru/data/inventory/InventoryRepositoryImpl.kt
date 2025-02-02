@@ -19,9 +19,10 @@ class InventoryRepositoryImpl(
       inventoryLocalDataSource.getItem(itemId).mapNotNull { it?.toDomain() }
 
   override fun getItems(query: String?): Flow<List<InventoryItem>> {
-    return inventoryLocalDataSource.getAllItems().map { items ->
-      items.mapNotNull { it.toDomain() }
-    }
+    val result =
+        if (query.isNullOrEmpty()) inventoryLocalDataSource.getAllItems()
+        else inventoryLocalDataSource.textSearch("*$query*")
+    return result.map { items -> items.distinct().mapNotNull { it.toDomain() } }
   }
 
   override suspend fun initialiseInventory() {

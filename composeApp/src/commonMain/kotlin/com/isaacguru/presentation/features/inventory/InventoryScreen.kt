@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.requiredHeight
+import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -26,14 +27,17 @@ import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.OutlinedButton
@@ -60,6 +64,7 @@ import com.isaacguru.presentation.features.inventory.model.FilterSection
 import com.isaacguru.presentation.features.inventory.model.ViewInventoryItem
 import com.isaacguru.presentation.features.inventory.model.ViewInventorySection
 import com.isaacguru.presentation.shared.AppRed
+import com.isaacguru.presentation.shared.ClearSearchRed
 import com.isaacguru.presentation.shared.TopBarBackgroundColor
 import com.isaacguru.presentation.shared.TopBarFocusedBackgroundColor
 import com.isaacguru.presentation.shared.TopBarSearchBackgroundColor
@@ -116,6 +121,19 @@ fun InventoryScreen(
                   onValueChange = { intent(InventoryIntent.OnQueryUpdated(it)) },
                   modifier = Modifier.fillMaxWidth(),
                   placeholder = { Text(text = "Search items") },
+                  trailingIcon = {
+                    if (viewState.filteringOptions.query.isNotEmpty()) {
+                      FilledIconButton(
+                          onClick = { intent(InventoryIntent.OnQueryUpdated("")) },
+                          colors =
+                              IconButtonDefaults.iconButtonColors(
+                                  containerColor = ClearSearchRed, contentColor = Color.Black),
+                          shape = MaterialTheme.shapes.small,
+                          modifier = Modifier.requiredSize(30.dp)) {
+                        Icon(Icons.Filled.Clear, contentDescription = "Clear Text")
+                      }
+                    }
+                  },
                   colors =
                       TextFieldDefaults.colors(
                           unfocusedContainerColor = TopBarSearchBackgroundColor,
@@ -222,7 +240,8 @@ fun FilterOverlay(
 
       FilterGroup(
           title = "Item Pools",
-          options = viewState.filteringOptions.filterSections[FilterSection.ITEM_POOLS] ?: emptyList(),
+          options = viewState.filteringOptions.filterSections[FilterSection.ITEM_POOLS]
+                  ?: emptyList(),
           onOptionSelected = {
             intent(
                 InventoryIntent.OnFilterSelected(

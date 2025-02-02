@@ -16,6 +16,14 @@ interface InventoryLocalDataSource {
 
   @Query("SELECT * FROM InventoryItemEntity") fun getAllItems(): Flow<List<InventoryItemEntity>>
 
+  @Query(
+      """
+    SELECT * FROM InventoryItemEntity
+    JOIN InventoryItemFtsEntity ON InventoryItemEntity.name = InventoryItemFtsEntity.name
+    WHERE InventoryItemFtsEntity MATCH :query
+  """)
+  fun textSearch(query: String): Flow<List<InventoryItemEntity>>
+
   @Query("SELECT * FROM InventoryItemEntity WHERE id = :id")
   fun getItem(id: String): Flow<InventoryItemEntity?>
 }

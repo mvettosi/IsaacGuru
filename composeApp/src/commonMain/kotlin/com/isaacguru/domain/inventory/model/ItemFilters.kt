@@ -5,7 +5,7 @@ data class ItemFilters(
     val itemPools: List<String> = emptyList(),
     val itemType: ItemType? = null
 ) {
-  val noFiltering = query.isBlank() && itemPools.isEmpty() && itemType == null
+  val noFiltering = itemPools.isEmpty() && itemType == null
 }
 
 enum class ItemType {
