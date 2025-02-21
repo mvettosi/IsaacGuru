@@ -21,11 +21,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@00854ea68c109d98c75d956347303bf7c45b0277 # v3.2.1
 
-      - name: Run Build
+      - name: Setup gradle caching
         uses: gradle/actions/setup-gradle@v4.3.0
-        with:
-          arguments: bundleRelease
-          gradle-version: wrapper
+
+      - name: Run build
+        run: ./gradlew bundleRelease
 
       - name: Sign bundle
         uses: r0adkll/sign-android-release@v1
