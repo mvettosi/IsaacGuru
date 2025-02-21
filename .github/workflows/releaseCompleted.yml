@@ -12,10 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4.1.3
 
-      - name: Fetch app versions
-        id: fetch_versions
-        run: ./scripts/fetchVersions.sh
-
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
