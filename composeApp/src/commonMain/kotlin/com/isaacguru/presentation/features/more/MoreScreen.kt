@@ -1,9 +1,9 @@
-package com.isaacguru.presentation.features.others
+package com.isaacguru.presentation.features.more
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 
 @Composable
-fun OthersScreen() {
+fun MoreScreen() {
   Text("Search")
 }

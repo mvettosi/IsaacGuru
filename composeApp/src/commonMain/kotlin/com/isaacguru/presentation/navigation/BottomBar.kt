@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import coil3.compose.rememberAsyncImagePainter
 import com.isaacguru.presentation.shared.BottomBarBackgroundColor
@@ -43,11 +44,11 @@ fun BottomBar(navController: NavHostController) {
               title = "Inventory",
               sprite = Res.getUri("files/collectibles_021_thecompass.png"),
           ),
-          BottomBarItem(
-              screen = Screen.More,
-              title = "More",
-              sprite = Res.getUri("files/collectibles_362_lilchest.png"),
-          ),
+          //          BottomBarItem(
+          //              screen = Screen.More,
+          //              title = "More",
+          //              sprite = Res.getUri("files/collectibles_362_lilchest.png"),
+          //          ),
           BottomBarItem(
               screen = Screen.Settings,
               title = "Settings",
@@ -65,7 +66,17 @@ fun BottomBar(navController: NavHostController) {
             selected = selected,
             onClick = {
               selectedItemIndex = index
-              navController.navigate(bottomBarItem.screen)
+              navController.navigate(bottomBarItem.screen) {
+                // Pop up to the start destination of the graph to
+                // avoid building up a large stack of destinations
+                // on the back stack as users select items
+                popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                // Avoid multiple copies of the same destination when
+                // reselecting the same item
+                launchSingleTop = true
+                // Restore state when reselecting a previously selected item
+                restoreState = true
+              }
             },
             label = { Text(bottomBarItem.title) },
             colors =

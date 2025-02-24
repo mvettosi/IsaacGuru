@@ -14,9 +14,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -55,7 +53,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.rememberAsyncImagePainter
@@ -68,11 +66,8 @@ import com.isaacguru.presentation.shared.ClearSearchRed
 import com.isaacguru.presentation.shared.TopBarBackgroundColor
 import com.isaacguru.presentation.shared.TopBarFocusedBackgroundColor
 import com.isaacguru.presentation.shared.TopBarSearchBackgroundColor
-import com.isaacguru.presentation.shared.components.BrandText
-import com.isaacguru.presentation.shared.components.ResImage
+import com.isaacguru.presentation.shared.components.AppSectionHeader
 import com.isaacguru.presentation.shared.inlineDiscordMap
-import isaacguru.composeapp.generated.resources.Res
-import isaacguru.composeapp.generated.resources.effect_streak
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -95,11 +90,7 @@ fun InventoryScreenRoot(
               coroutineScope.launch { sheetState.hide() }.invokeOnCompletion {
                 viewModel.intent(InventoryIntent.OnDismissFilters)
               }
-          is InventoryIntent.OnItemClick -> {
-//              Firebase.crashlytics.log("Test crashlytics log")
-//              Firebase.crashlytics.reportException(RuntimeException("Test non-fatal"))
-              onNavigateToDetail(it.id)
-          }
+          is InventoryIntent.OnItemClick -> onNavigateToDetail(it.id)
           else -> viewModel.intent(it)
         }
       })
@@ -171,19 +162,10 @@ fun InventoryScreen(
 
 @Composable
 fun InventorySectionHeader(section: ViewInventorySection, intent: (InventoryIntent) -> Unit) {
-  Box(
-      contentAlignment = Alignment.Center,
-      modifier = Modifier.clickable { intent(InventoryIntent.OnSectionClick(section.title)) }) {
-    ResImage(
-        modifier = Modifier.fillMaxWidth().requiredHeight(70.dp),
-        contentScale = ContentScale.FillBounds,
-        resource = Res.drawable.effect_streak,
-        contentDescription = "Effect Streak")
-    BrandText(
-        text = section.fullTitle,
-        style = MaterialTheme.typography.headlineMedium,
-        modifier = Modifier.offset(y = (-8).dp))
-  }
+  AppSectionHeader(
+      title = section.fullTitle,
+      isExpanded = !section.collapsed,
+      modifier = Modifier.clickable { intent(InventoryIntent.OnSectionClick(section.title)) })
 }
 
 @Composable
@@ -201,7 +183,7 @@ fun InventorySectionItem(
       contentAlignment = Alignment.Center,
   ) {
     Image(
-        painter = rememberAsyncImagePainter(item.thumbnail),
+        painter = rememberAsyncImagePainter(item.thumbnail, filterQuality = FilterQuality.None),
         contentDescription = item.name,
         modifier = Modifier.fillMaxSize())
   }
