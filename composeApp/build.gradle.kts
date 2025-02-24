@@ -10,11 +10,12 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.serialization)
   alias(libs.plugins.ksp)
   alias(libs.plugins.room)
+  alias(libs.plugins.google.services)
+  alias(libs.plugins.crashlytics)
 }
 
 kotlin {
   androidTarget {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions { jvmTarget.set(JvmTarget.JVM_11) }
   }
 
@@ -64,6 +65,10 @@ kotlin {
       implementation(libs.bundles.coil)
 
       implementation(libs.kermit)
+
+      implementation(project.dependencies.platform(libs.firebase.bom))
+      implementation(libs.firebase.crashlytics)
+      implementation(libs.firebase.analytics)
     }
     //    desktopMain.dependencies {
     //      implementation(compose.desktop.currentOs)

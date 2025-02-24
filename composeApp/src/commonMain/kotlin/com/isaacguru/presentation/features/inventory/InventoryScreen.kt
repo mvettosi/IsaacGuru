@@ -95,7 +95,11 @@ fun InventoryScreenRoot(
               coroutineScope.launch { sheetState.hide() }.invokeOnCompletion {
                 viewModel.intent(InventoryIntent.OnDismissFilters)
               }
-          is InventoryIntent.OnItemClick -> onNavigateToDetail(it.id)
+          is InventoryIntent.OnItemClick -> {
+//              Firebase.crashlytics.log("Test crashlytics log")
+//              Firebase.crashlytics.reportException(RuntimeException("Test non-fatal"))
+              onNavigateToDetail(it.id)
+          }
           else -> viewModel.intent(it)
         }
       })
