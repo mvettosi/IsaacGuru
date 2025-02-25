@@ -86,8 +86,8 @@ android {
     applicationId = "com.isaacguru"
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
-    versionCode = 2
-    versionName = "0.0.2"
+    versionCode = 3
+    versionName = "0.0.3"
   }
   packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
   buildTypes { getByName("release") { isMinifyEnabled = false } }
