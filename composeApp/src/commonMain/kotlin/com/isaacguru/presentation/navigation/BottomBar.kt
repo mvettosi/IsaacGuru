@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
+import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -85,7 +86,7 @@ fun BottomBar(navController: NavHostController) {
                 ),
             icon = {
               Image(
-                  painter = rememberAsyncImagePainter(bottomBarItem.sprite),
+                  painter = rememberAsyncImagePainter(bottomBarItem.sprite, filterQuality = FilterQuality.None),
                   contentDescription = bottomBarItem.title,
                   modifier = Modifier.requiredSize(70.dp),
                   contentScale = ContentScale.FillHeight,
