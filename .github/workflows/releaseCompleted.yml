@@ -6,7 +6,7 @@ on:
       - 'main'
 
 jobs:
-  pushToInternalTesting:
+  pushToPlayStore:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
