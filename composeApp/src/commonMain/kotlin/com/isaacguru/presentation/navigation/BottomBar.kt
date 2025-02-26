@@ -86,7 +86,9 @@ fun BottomBar(navController: NavHostController) {
                 ),
             icon = {
               Image(
-                  painter = rememberAsyncImagePainter(bottomBarItem.sprite, filterQuality = FilterQuality.None),
+                  painter =
+                      rememberAsyncImagePainter(
+                          bottomBarItem.sprite, filterQuality = FilterQuality.None),
                   contentDescription = bottomBarItem.title,
                   modifier = Modifier.requiredSize(70.dp),
                   contentScale = ContentScale.FillHeight,

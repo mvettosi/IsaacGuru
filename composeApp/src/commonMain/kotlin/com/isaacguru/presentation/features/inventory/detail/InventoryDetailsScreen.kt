@@ -78,13 +78,19 @@ fun InventoryDetailsScreen(
         if (viewState.item.raw is Item) {
           QualityRow(viewState.item.raw.quality)
         }
-        BrandText(text = viewState.item.raw.name, style = MaterialTheme.typography.displayMedium, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+        BrandText(
+            text = viewState.item.raw.name,
+            style = MaterialTheme.typography.displayMedium,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center)
         if (viewState.item.raw is Item) {
           viewState.item.raw.quote?.let {
             Text(
                 text = "\"$it\"",
                 color = QuoteColor,
-                style = MaterialTheme.typography.headlineSmall, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center)
           }
         }
         GameAspectImage(
@@ -93,7 +99,9 @@ fun InventoryDetailsScreen(
           Text(
               text = it,
               style = MaterialTheme.typography.titleLarge.copy(fontStyle = Italic),
-              color = Color.Gray, modifier = Modifier.fillMaxWidth(), textAlign = TextAlign.Center)
+              color = Color.Gray,
+              modifier = Modifier.fillMaxWidth(),
+              textAlign = TextAlign.Center)
         }
         DetailsDivider()
         Text(
