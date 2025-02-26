@@ -28,8 +28,6 @@ fun CollapsableSection(
               .fillMaxWidth()) {
     AppSectionHeader(isExpanded = isExpanded, title = title)
 
-    AnimatedVisibility(
-        modifier = Modifier.fillMaxWidth(),
-        visible = isExpanded) { content() }
+    AnimatedVisibility(modifier = Modifier.fillMaxWidth(), visible = isExpanded) { content() }
   }
 }
