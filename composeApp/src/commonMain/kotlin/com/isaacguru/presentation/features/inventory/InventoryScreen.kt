@@ -121,6 +121,7 @@ fun InventoryScreen(
                   onValueChange = { intent(InventoryIntent.OnQueryUpdated(it)) },
                   modifier = Modifier.fillMaxWidth(),
                   placeholder = { Text(text = "Search items") },
+                  singleLine = true,
                   trailingIcon = {
                     if (viewState.filteringOptions.query.isNotEmpty()) {
                       FilledIconButton(
