@@ -19,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontStyle.Companion.Italic
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.isaacguru.domain.inventory.model.Item
@@ -77,13 +78,19 @@ fun InventoryDetailsScreen(
         if (viewState.item.raw is Item) {
           QualityRow(viewState.item.raw.quality)
         }
-        BrandText(text = viewState.item.raw.name, style = MaterialTheme.typography.displayMedium)
+        BrandText(
+            text = viewState.item.raw.name,
+            style = MaterialTheme.typography.displayMedium,
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center)
         if (viewState.item.raw is Item) {
           viewState.item.raw.quote?.let {
             Text(
                 text = "\"$it\"",
                 color = QuoteColor,
-                style = MaterialTheme.typography.headlineSmall)
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center)
           }
         }
         GameAspectImage(
@@ -92,7 +99,9 @@ fun InventoryDetailsScreen(
           Text(
               text = it,
               style = MaterialTheme.typography.titleLarge.copy(fontStyle = Italic),
-              color = Color.Gray)
+              color = Color.Gray,
+              modifier = Modifier.fillMaxWidth(),
+              textAlign = TextAlign.Center)
         }
         DetailsDivider()
         Text(

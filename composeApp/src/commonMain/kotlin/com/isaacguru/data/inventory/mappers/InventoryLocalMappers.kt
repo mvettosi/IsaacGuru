@@ -33,6 +33,7 @@ fun InventoryItemEntity.toItem(): Item =
           Item.Active(
               id = id,
               rawId = id_raw ?: "",
+              orderId = order_id?.toInt() ?: Int.MAX_VALUE,
               name = name ?: "",
               description = bot_description ?: "",
               image = gfxfull.toResourceUri(),
@@ -51,6 +52,7 @@ fun InventoryItemEntity.toItem(): Item =
           Item.Passive(
               id = id,
               rawId = id_raw ?: "",
+              orderId = order_id?.toInt() ?: Int.MAX_VALUE,
               name = name ?: "",
               description = bot_description ?: "",
               image = gfxfull.toResourceUri(),
@@ -84,6 +86,7 @@ fun InventoryItemEntity.toTrinket(): Trinket =
     Trinket(
         id = id,
         rawId = id_raw ?: "",
+        orderId = order_id?.toInt() ?: Int.MAX_VALUE,
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -96,6 +99,7 @@ fun InventoryItemEntity.toPickup(): Pickup =
     Pickup(
         id = id,
         rawId = id_raw ?: "",
+        orderId = order_id?.toInt() ?: Int.MAX_VALUE,
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -107,6 +111,7 @@ fun InventoryItemEntity.toConsumable(): Consumable =
     Consumable(
         id = id,
         rawId = id_raw ?: "",
+        orderId = order_id?.toInt() ?: Int.MAX_VALUE,
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -120,6 +125,7 @@ fun InventoryItemEntity.toMachine(): Machine =
     Machine(
         id = id,
         rawId = id_raw ?: "",
+        orderId = order_id?.toInt() ?: Int.MAX_VALUE,
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -130,6 +136,7 @@ fun InventoryItemEntity.toCharacter(): Character =
     Character(
         id = id,
         rawId = id_raw ?: "",
+        orderId = order_id?.toInt() ?: Int.MAX_VALUE,
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -142,6 +149,7 @@ fun InventoryItemEntity.toTransformation(): Transformation =
     Transformation(
         id = id,
         rawId = id_raw ?: "",
+        orderId = order_id?.toInt() ?: Int.MAX_VALUE,
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),
@@ -153,6 +161,7 @@ fun InventoryItemEntity.toCurse(): Curse =
     Curse(
         id = id,
         rawId = id_raw ?: "",
+        orderId = order_id?.toInt() ?: Int.MAX_VALUE,
         name = name ?: "",
         description = bot_description ?: "",
         image = gfxfull.toResourceUri(),

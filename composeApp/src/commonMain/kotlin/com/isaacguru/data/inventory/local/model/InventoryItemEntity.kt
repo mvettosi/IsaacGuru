@@ -8,6 +8,7 @@ import androidx.room.PrimaryKey
 data class InventoryItemEntity(
     @PrimaryKey(autoGenerate = false) val id: String,
     val id_raw: String? = null,
+    val order_id: String? = null,
     val name: String? = null,
     val type: String? = null,
     val main_type: String? = null,

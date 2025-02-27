@@ -1,5 +1,4 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -10,13 +9,12 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.serialization)
   alias(libs.plugins.ksp)
   alias(libs.plugins.room)
+  alias(libs.plugins.google.services)
+  alias(libs.plugins.crashlytics)
 }
 
 kotlin {
-  androidTarget {
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    compilerOptions { jvmTarget.set(JvmTarget.JVM_11) }
-  }
+  androidTarget { compilerOptions { jvmTarget.set(JvmTarget.JVM_11) } }
 
   listOf(iosX64(), iosArm64(), iosSimulatorArm64()).forEach { iosTarget ->
     iosTarget.binaries.framework {
@@ -64,6 +62,10 @@ kotlin {
       implementation(libs.bundles.coil)
 
       implementation(libs.kermit)
+
+      implementation(project.dependencies.platform(libs.firebase.bom))
+      implementation(libs.firebase.crashlytics)
+      implementation(libs.firebase.analytics)
     }
     //    desktopMain.dependencies {
     //      implementation(compose.desktop.currentOs)
@@ -84,8 +86,8 @@ android {
     applicationId = "com.isaacguru"
     minSdk = libs.versions.android.minSdk.get().toInt()
     targetSdk = libs.versions.android.targetSdk.get().toInt()
-    versionCode = 2
-    versionName = "0.0.2"
+    versionCode = 4
+    versionName = "0.0.4"
   }
   packaging { resources { excludes += "/META-INF/{AL2.0,LGPL2.1}" } }
   buildTypes { getByName("release") { isMinifyEnabled = false } }

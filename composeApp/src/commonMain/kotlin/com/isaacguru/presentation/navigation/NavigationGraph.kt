@@ -7,7 +7,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.isaacguru.presentation.features.inventory.InventoryScreenRoot
 import com.isaacguru.presentation.features.inventory.detail.InventoryDetailsScreenRoot
-import com.isaacguru.presentation.features.others.OthersScreen
+import com.isaacguru.presentation.features.more.MoreScreen
 import com.isaacguru.presentation.features.settings.SettingsScreen
 
 @Composable
@@ -20,7 +20,7 @@ fun NavigationGraph(navController: NavHostController, modifier: Modifier = Modif
     composable<Screen.InventoryDetail> {
       InventoryDetailsScreenRoot(onBackClick = navController::popBackStack)
     }
-    composable<Screen.More> { OthersScreen() }
+    composable<Screen.More> { MoreScreen() }
     composable<Screen.Settings> { SettingsScreen() }
   }
 }

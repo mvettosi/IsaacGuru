@@ -1,5 +1,6 @@
 package com.isaacguru.data.db
 
+import androidx.room.AutoMigration
 import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
@@ -13,7 +14,11 @@ import com.isaacguru.data.itempool.local.model.ItemPoolEntity
 
 @Database(
     entities = [InventoryItemEntity::class, InventoryItemFtsEntity::class, ItemPoolEntity::class],
-    version = 2)
+    version = 3,
+    autoMigrations =
+        [
+            AutoMigration(from = 2, to = 3),
+        ])
 @TypeConverters(StringListTypeConverter::class)
 @ConstructedBy(IsaacGuruDatabaseConstructor::class)
 abstract class IsaacGuruDatabase : RoomDatabase() {

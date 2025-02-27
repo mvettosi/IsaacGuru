@@ -12,6 +12,7 @@ fun InventoryItemRemote.toLocal(): InventoryItemEntity? =
         InventoryItemEntity(
             id = this.id ?: Uuid.random().toString(),
             id_raw = this.id_raw,
+            order_id = order_id,
             name = this.name,
             type = this.type,
             main_type = this.main_type,

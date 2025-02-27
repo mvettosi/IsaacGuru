@@ -1,0 +1,221 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "0ec934132f6753cb7a9c02d25f9fb313",
+    "entities": [
+      {
+        "tableName": "InventoryItemEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `id_raw` TEXT, `order_id` TEXT, `name` TEXT, `type` TEXT, `main_type` TEXT, `display_type` TEXT, `maxcharges` TEXT, `chargetype` TEXT, `cooldown` TEXT, `hidden` TEXT, `clean_name` TEXT, `description` TEXT, `quality` TEXT, `pools` TEXT, `tags` TEXT, `gfxfull` TEXT, `dontshow` TEXT, `costume` TEXT, `keywords` TEXT, `unlock_method` TEXT, `transformations` TEXT, `bot_description` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_raw",
+            "columnName": "id_raw",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "order_id",
+            "columnName": "order_id",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "main_type",
+            "columnName": "main_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "display_type",
+            "columnName": "display_type",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "maxcharges",
+            "columnName": "maxcharges",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "chargetype",
+            "columnName": "chargetype",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "cooldown",
+            "columnName": "cooldown",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "hidden",
+            "columnName": "hidden",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "clean_name",
+            "columnName": "clean_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "quality",
+            "columnName": "quality",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pools",
+            "columnName": "pools",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "gfxfull",
+            "columnName": "gfxfull",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "dontshow",
+            "columnName": "dontshow",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "costume",
+            "columnName": "costume",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "keywords",
+            "columnName": "keywords",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "unlock_method",
+            "columnName": "unlock_method",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "transformations",
+            "columnName": "transformations",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bot_description",
+            "columnName": "bot_description",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "InventoryItemFtsEntity",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS4(`name` TEXT, `description` TEXT, `bot_description` TEXT, content=`InventoryItemEntity`)",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "bot_description",
+            "columnName": "bot_description",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "rowid"
+          ]
+        },
+        "ftsVersion": "FTS4",
+        "ftsOptions": {
+          "tokenizer": "simple",
+          "tokenizerArgs": [],
+          "contentTable": "InventoryItemEntity",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_InventoryItemFtsEntity_BEFORE_UPDATE BEFORE UPDATE ON `InventoryItemEntity` BEGIN DELETE FROM `InventoryItemFtsEntity` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_InventoryItemFtsEntity_BEFORE_DELETE BEFORE DELETE ON `InventoryItemEntity` BEGIN DELETE FROM `InventoryItemFtsEntity` WHERE `docid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_InventoryItemFtsEntity_AFTER_UPDATE AFTER UPDATE ON `InventoryItemEntity` BEGIN INSERT INTO `InventoryItemFtsEntity`(`docid`, `name`, `description`, `bot_description`) VALUES (NEW.`rowid`, NEW.`name`, NEW.`description`, NEW.`bot_description`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_InventoryItemFtsEntity_AFTER_INSERT AFTER INSERT ON `InventoryItemEntity` BEGIN INSERT INTO `InventoryItemFtsEntity`(`docid`, `name`, `description`, `bot_description`) VALUES (NEW.`rowid`, NEW.`name`, NEW.`description`, NEW.`bot_description`); END"
+        ]
+      },
+      {
+        "tableName": "ItemPoolEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `name` TEXT NOT NULL, `description` TEXT NOT NULL, `emoji` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "emoji",
+            "columnName": "emoji",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0ec934132f6753cb7a9c02d25f9fb313')"
+    ]
+  }
+}

@@ -47,7 +47,7 @@ fun DetailsTopBar(
                           color = inventoryItem.getBadgeColour(), shape = RoundedCornerShape(4.dp))
                       .padding(vertical = 4.dp, horizontal = 10.dp)) {
             Text(
-                text = "#${inventoryItem.id}",
+                text = "#${inventoryItem.rawId}",
                 style = MaterialTheme.typography.headlineSmall.copy(Color.White),
                 modifier = Modifier,
             )
