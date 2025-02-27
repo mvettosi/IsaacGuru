@@ -18,8 +18,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.isaacguru.domain.inventory.model.Character
+import com.isaacguru.domain.inventory.model.Consumable
+import com.isaacguru.domain.inventory.model.Curse
 import com.isaacguru.domain.inventory.model.InventoryItem
 import com.isaacguru.domain.inventory.model.Item
+import com.isaacguru.domain.inventory.model.Machine
+import com.isaacguru.domain.inventory.model.Pickup
+import com.isaacguru.domain.inventory.model.Transformation
+import com.isaacguru.domain.inventory.model.Trinket
+import com.isaacguru.presentation.shared.*
 import com.isaacguru.presentation.shared.ItemIdColor
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -60,5 +68,12 @@ fun DetailsTopBar(
 private fun InventoryItem.getBadgeColour() =
     when (this) {
       is Item -> ItemIdColor
+      is Trinket -> TrinketIdColor
+      is Pickup -> PickupIdColor
+      is Consumable -> ConsumableIdColor
+      is Machine -> MachineIdColor
+      is Character -> CharacterIdColor
+      is Transformation -> TransformationIdColor
+      is Curse -> CurseIdColor
       else -> Color.White
     }

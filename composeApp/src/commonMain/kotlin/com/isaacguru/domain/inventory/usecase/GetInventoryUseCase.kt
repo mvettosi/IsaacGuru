@@ -10,11 +10,7 @@ import kotlinx.coroutines.flow.map
 
 class GetInventoryUseCase(private val inventoryRepository: InventoryRepository) {
   operator fun invoke(itemFilters: ItemFilters): Flow<List<InventoryItem>> =
-      inventoryRepository.getItems(query = itemFilters.query).filterItems(itemFilters).sortItems()
-
-  private fun Flow<List<InventoryItem>>.sortItems(): Flow<List<InventoryItem>> = map { items ->
-    items.sortedBy { it.orderId }
-  }
+      inventoryRepository.getItems(query = itemFilters.query).filterItems(itemFilters)
 
   private fun Flow<List<InventoryItem>>.filterItems(
       itemFilters: ItemFilters
