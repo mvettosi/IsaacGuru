@@ -27,7 +27,7 @@ room = "2.7.0-rc01"
 spotless = "6.23.3"
 kermit = "2.0.5"
 google-services = "4.4.2"
-crashlytics = "3.0.3"
+crashlytics = "3.0.7"
 
 [libraries]
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
